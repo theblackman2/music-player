@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import SideBar from "./SideBar/SideBar";
+import SearchBar from "./SearchBar/SearchBar";
 
 function Layout({ page }) {
   return (
     <Container>
       <SideBar />
+      <SearchBar />
       <div className="page">{page}</div>
     </Container>
   );
@@ -20,5 +22,6 @@ const Container = styled.div`
   .page{
     width: calc(100vw - 200px);
     margin-left: 200px;
+    margin-top : 80px;
   }
 `;

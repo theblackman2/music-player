@@ -1,68 +1,67 @@
 import "./Home.css";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Loading from "../Loading/Loading";
 import Layout from "../../Layout";
+import { useContext, useState, useEffect } from "react";
+import { appContext } from "../../../contexts";
+import styled from "styled-components";
+import MusicPreview from "../../MusicPreview/MusicPreview";
 
 function Home() {
-  const navigate = useNavigate();
-  const [token, setToken] = useState("");
-  const [logedIn, setLogedIn] = useState(true);
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [lastPlayed, setLastPlayed] = useState([]);
+  const { spotify } = useContext(appContext);
 
-  const setUserInfos = (data) => {
-    const userId = data.id;
-    const userUri = data.uri;
-    const userName = data.display_name;
-    const userEmail = data.email;
-    return {
-      id: userId,
-      name: userName,
-      email: userEmail,
-      uri: userUri,
-    };
+  const millisToMinutesAndSeconds = (millis) => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setToken(token);
-    } else {
-      navigate("/login");
-    }
-  }, [logedIn]);
+    const tracs = spotify.getMyRecentlyPlayedTracks();
+    tracs.then((data) => setLastPlayed(data.items));
+  }, []);
 
-  const logOut = () => {
-    localStorage.removeItem("token");
-    setLogedIn(false);
-  };
+  console.log(lastPlayed);
 
-  useEffect(() => {
-    axios({
-      url: "https://api.spotify.com/v1/me",
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then((response) => setUser(setUserInfos(response.data)))
-      .then(() => setLoading(false))
-      .catch((error) => console.log(error));
-  }, [token]);
+  const lastsUi =
+    lastPlayed.length > 0
+      ? lastPlayed.map((item) => {
+          const imageUrl = item.track.album.images[0].url;
+          const id = item.track.id;
+          const artist = item.track.artists[0].name;
+          const duration = millisToMinutesAndSeconds(item.track.duration_ms);
+          const title = item.track.name;
+          return (
+            <MusicPreview
+              key={id}
+              title={title}
+              artist={artist}
+              duration={duration}
+              imageUrl={imageUrl}
+              id={id}
+            />
+          );
+        })
+      : null;
 
-  const page = loading ? (
-    <Loading />
-  ) : (
-    <div className="home-page">
-      <h1>Bienvenue {user.name}</h1>
-      <p>Votre adresse email est {user.email}</p> <br />
-      <button onClick={logOut}>Déconnexion</button>
-    </div>
+  const page = (
+    <Container>
+      <h2 className="section-title">Derniers morceaux joués</h2>
+      <div className="songs">{lastsUi}</div>
+    </Container>
   );
 
-  return <Layout page = {page} />
+  return <Layout page={page} />;
 }
 
 export default Home;
+
+const Container = styled.div`
+  padding: 1rem;
+
+  .songs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+`;
