@@ -13,6 +13,11 @@ const spotify = new SpotifyWebApi();
 export default function App() {
   const [token, setToken] = useState("");
   const [loaded, setLoaded] = useState(false);
+  const [playingSongUris, setPlayingSongUris] = useState([]);
+
+  const chooseSong = (uris) => {
+    setPlayingSongUris(uris);
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -24,7 +29,7 @@ export default function App() {
   }, []);
 
   return (
-    <appContext.Provider value={{ token, spotify }}>
+    <appContext.Provider value={{ token, spotify, playingSongUris, chooseSong }}>
       <BrowserRouter>
         <Routes>
           <Route
