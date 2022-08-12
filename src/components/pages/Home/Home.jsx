@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../Loading/Loading";
+import Layout from "../../Layout";
 
 function Home() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function Home() {
       .catch((error) => console.log(error));
   }, [token]);
 
-  return loading ? (
+  const page = loading ? (
     <Loading />
   ) : (
     <div className="home-page">
@@ -60,6 +61,8 @@ function Home() {
       <button onClick={logOut}>Déconnexion</button>
     </div>
   );
+
+  return <Layout page = {page} />
 }
 
 export default Home;

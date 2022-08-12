@@ -60,8 +60,8 @@ function Login() {
         </p>
         <button onClick={login} className="login-btn">
           Connexion
-          <img src="./spotify.png" alt="Spotify icon" />
-          <img src="./google.png" alt="Google icon" />
+          <img src="./assets/icons/spotify.png" alt="Spotify icon" />
+          <img src="./assets/icons/google.png" alt="Google icon" />
         </button>
       </div>
     </div>
