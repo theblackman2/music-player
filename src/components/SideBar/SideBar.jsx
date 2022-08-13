@@ -1,51 +1,20 @@
-import { useMemo } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../contexts";
 
 function SideBar() {
-  const [loadingUserInfos, setLoadingUserInfo] = useState(true);
-  const {token} = useContext(appContext);
-  const [user, setUser] = useState({});
   const navigate = useNavigate();
 
-  const { spotify } = useContext(appContext);
-
-  const setUserInfos = (data) => {
-    const userId = data.id;
-    const userUri = data.uri;
-    const userName = data.display_name;
-    const userEmail = data.email;
-    const imageUrl = data.images.length > 0 ? data.images[0].url : null;
-    return {
-      id: userId,
-      name: userName,
-      email: userEmail,
-      uri: userUri,
-      imageUrl: imageUrl,
-    };
-  };
+  const { user, loadingUser } = useContext(appContext);
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate('/login')
+    navigate("/login");
   };
 
-  const getMe = useMemo(async () => {
-    const user = await spotify.getMe();
-    return user
-  })
-
-  useEffect(() => {
-    
-    getMe
-      .then((data) => setUser(setUserInfos(data)))
-      .then(() => setLoadingUserInfo(false));
-  }, [token]);
-
-  const userInfos = loadingUserInfos ? (
+  const userInfos = loadingUser ? (
     <LoadingUser>
       <div className="loading-avatar"></div>
       <div className="loading-infos">
@@ -57,12 +26,14 @@ function SideBar() {
     <User>
       <div className="user-avatar">
         <img
-          src={user.imageUrl ? user.imageUrl : "./assets/user.png"}
+          src={
+            user.images.length > 0 ? user.images[0].url : "./assets/user.png"
+          }
           alt="User avatar"
         />
       </div>
       <div className="user-infos">
-        <h2 className="user-infos__name">{user.name}</h2>
+        <h2 className="user-infos__name">{user.display_name}</h2>
         <p className="user-infos__email">{user.email}</p>
       </div>
     </User>

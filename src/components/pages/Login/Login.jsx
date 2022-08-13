@@ -2,9 +2,11 @@ import "./Login.css";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "./../Loading/Loading";
 
 function Login() {
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const login = () => {
     const clientId = "b309623c655e4a2b9091ac8d77e58bea";
@@ -36,6 +38,14 @@ function Login() {
   };
 
   useEffect(() => {
+    const timeOut = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeOut);
+  }, []);
+
+  useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
       const token = hash.substring(1).split("&")[0].split("=")[1];
@@ -48,7 +58,9 @@ function Login() {
     if (token) navigate("/");
   }, [token]);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="login-page">
       <div className="login-img">
         <img src="./casques-img.png" alt="Casques" />
@@ -56,7 +68,7 @@ function Login() {
       <div className="login-text">
         <h1>Spot Music by TheBlackMan</h1>
         <p>
-          Ecouter des millions de chansons partout dans le monde sans limite.
+          Imaginez toutes les musiques du monde en un seul endroit, tout ce que vous aimez écouter, écoutez les sans arrêt et sans dépenser un seul sous.
         </p>
         <button onClick={login} className="login-btn">
           Connexion

@@ -13,10 +13,10 @@ function Layout({ page }) {
       <SearchBar />
       <div className="page">{page}</div>
       <div className="player">
-        <SpotifyPlayer
+        {/* <SpotifyPlayer
           token={token}
           uris={playingSongUris}
-        />
+        /> */}
       </div>
     </Container>
   );
