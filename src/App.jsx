@@ -7,6 +7,7 @@ import Artists from "./components/pages/Artists/Artists";
 import SpotifyWebApi from "spotify-web-api-js";
 import { appContext } from "./contexts";
 import { useState, useEffect } from "react";
+import PlayList from "./components/pages/PlayList/PlayList";
 
 const spotify = new SpotifyWebApi();
 
@@ -27,7 +28,7 @@ export default function App() {
       setToken(token);
       spotify.setAccessToken(token);
       const user = spotify.getMe();
-      user.then((data) => setUser(data)).then(() => setLoadingUser(false)); 
+      user.then((data) => setUser(data)).then(() => setLoadingUser(false));
     }
     setLoaded(true);
   }, []);
@@ -45,7 +46,8 @@ export default function App() {
             }
           />
           <Route path="login" element={<Login />} />
-          <Route path="playlists" element={<PlayLists />} />
+          <Route path="playlists" element={<PlayLists />}></Route>
+          <Route path="playlists/:id" element={<PlayList />} />
           <Route path="artists" element={<Artists />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

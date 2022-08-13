@@ -32,12 +32,14 @@ function PlayLists() {
   const playListsUi =
     myPlayLists.length > 0 ? (
       myPlayLists.map((item) => {
+        const id = item.id;
         const name = item.name;
         const description = item.description;
         const imageUrl = item.images[0].url;
         return (
           <PlayListUi
             key={nanoid()}
+            id={id}
             name={name}
             description={description}
             imageUrl={imageUrl}
@@ -51,20 +53,26 @@ function PlayLists() {
   const futuredUi =
     futuredPlaylists.length > 0 ? (
       futuredPlaylists.map((item) => {
-        const name = item.name;
-        const description = item.description;
-        const imageUrl = item.images[0].url;
-        return (
-          <PlayListUi
-            key={nanoid()}
-            name={name}
-            description={description}
-            imageUrl={imageUrl}
-          />
-        );
+        if (item !== null) {
+          const id = item.id;
+          const name = item.name;
+          const description = item.description;
+          const imageUrl = item.images[0].url;
+          return (
+            <PlayListUi
+              key={nanoid()}
+              id={id}
+              name={name}
+              description={description}
+              imageUrl={imageUrl}
+            />
+          );
+        }
       })
     ) : (
-      <div>Nous ne pouvons rien vous proposer, écoutez quelques musiques avant.</div>
+      <div>
+        Nous ne pouvons rien vous proposer, écoutez quelques musiques avant.
+      </div>
     );
 
   const page = (

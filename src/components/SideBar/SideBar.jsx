@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../contexts";
+import HomeIcon from './../../../public/assets/icons/home.png'
+import PlayListIcon from './../../../public/assets/icons/playlist.png'
+import ArtisteIcon from './../../../public/assets/icons/person.png'
 
 function SideBar() {
   const navigate = useNavigate();
@@ -47,7 +50,7 @@ function SideBar() {
         to="/"
       >
         {" "}
-        <img src="./assets/icons/home.png" alt="Home" />
+        <img src={HomeIcon} alt="Home" />
         Accueil
       </NavLink>
       <NavLink
@@ -55,7 +58,7 @@ function SideBar() {
         to="/playlists"
       >
         {" "}
-        <img src="./assets/icons/playlist.png" alt="Home" />
+        <img src={PlayListIcon} alt="PlayList" />
         Playlistes
       </NavLink>
       <NavLink
@@ -63,7 +66,7 @@ function SideBar() {
         to="/artists"
       >
         {" "}
-        <img src="./assets/icons/person.png" alt="Home" />
+        <img src={ArtisteIcon} alt="Artistes" />
         Artistes
       </NavLink>
       <button onClick={logout} className="logout-btn">

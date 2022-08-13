@@ -40,7 +40,7 @@ function Login() {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 5000);
 
     return () => clearTimeout(timeOut);
   }, []);
