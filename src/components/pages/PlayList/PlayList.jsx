@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Layout from "../../Layout";
 import { useContext, useEffect, useState } from "react";
 import { appContext } from "../../../contexts";
-import PlayIcon from "./../../../../public/assets/play.png";
+import PlayIcon from "./../../../assets/play.png";
 import { nanoid } from "nanoid";
 
 function PlayList() {

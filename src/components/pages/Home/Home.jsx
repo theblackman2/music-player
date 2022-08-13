@@ -10,9 +10,7 @@ import { nanoid } from "nanoid";
 function Home() {
   const [lastPlayed, setLastPlayed] = useState([]);
   const [loadingLatests, setLoadingLatests] = useState(true);
-  const [topTracks, setTopTracks] = useState([]);
   const { spotify } = useContext(appContext);
-  const [loadingTop, setLoadingTop] = useState(true);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -26,35 +24,6 @@ function Home() {
       .then((data) => setLastPlayed(data.items.slice(0, 10)))
       .then(() => setLoadingLatests(false));
   }, []);
-
-  // useEffect(() => {
-  //   const tracs = spotify.getAvailableGenreSeeds();
-  //   tracs.then((data) => console.log(data))
-  //   // tracs
-  //   //   .then((data) => setTopTracks(data.items.slice(0, 10)))
-  //   //   .then(setLoadingTop(false));
-  // }, []);
-
-  // const topTracksUi =
-  //   topTracks.length > 0
-  //     ? topTracks.map((item) => {
-  //         const imageUrl = item.track.album.images[0].url;
-  //         const id = item.track.id;
-  //         const artist = item.track.artists[0].name;
-  //         const duration = millisToMinutesAndSeconds(item.track.duration_ms);
-  //         const title = item.track.name;
-  //         return (
-  //           <MusicPreview
-  //             key={nanoid()}
-  //             title={title}
-  //             artist={artist}
-  //             duration={duration}
-  //             imageUrl={imageUrl}
-  //             id={id}
-  //           />
-  //         );
-  //       })
-  //     : null;
 
   const lastsUi =
     lastPlayed.length > 0

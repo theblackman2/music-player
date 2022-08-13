@@ -1,7 +1,13 @@
 import "./App.css";
 import Login from "./components/pages/Login/Login";
 import Home from "./components/pages/Home/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import PlayLists from "./components/pages/PlayLists/PlayLists";
 import Artists from "./components/pages/Artists/Artists";
 import SpotifyWebApi from "spotify-web-api-js";
@@ -17,6 +23,7 @@ export default function App() {
   const [token, setToken] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [playingSongUris, setPlayingSongUris] = useState([]);
+  const [mustLogin, setMustLogin] = useState(false);
 
   const chooseSong = (uris) => {
     setPlayingSongUris(uris);
@@ -28,7 +35,17 @@ export default function App() {
       setToken(token);
       spotify.setAccessToken(token);
       const user = spotify.getMe();
-      user.then((data) => setUser(data)).then(() => setLoadingUser(false));
+      user
+        .then((data) => setUser(data))
+        .catch((error) => {
+          if (
+            error.response ===
+            `{\n  \"error\": {\n    \"status\": 401,\n    \"message\": \"The access token expired\"\n  }\n}`
+          ) {
+            setMustLogin(true);
+          }
+        })
+        .then(() => setLoadingUser(false));
     }
     setLoaded(true);
   }, []);
@@ -42,7 +59,13 @@ export default function App() {
           <Route
             path="/"
             element={
-              !token && loaded ? <Navigate to="/login" replace /> : <Home />
+              !token && loaded ? (
+                <Navigate to="/login" replace />
+              ) : mustLogin ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <Home />
+              )
             }
           />
           <Route path="login" element={<Login />} />

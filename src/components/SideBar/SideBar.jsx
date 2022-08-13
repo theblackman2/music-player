@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../contexts";
-import HomeIcon from './../../../public/assets/icons/home.png'
-import PlayListIcon from './../../../public/assets/icons/playlist.png'
-import ArtisteIcon from './../../../public/assets/icons/person.png'
+import HomeIcon from './../../assets/icons/home.png'
+import PlayListIcon from './../../assets/icons/playlist.png'
+import ArtisteIcon from './../../assets/icons/person.png'
 
 function SideBar() {
   const navigate = useNavigate();
