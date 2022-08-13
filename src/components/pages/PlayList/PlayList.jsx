@@ -60,7 +60,7 @@ function PlayList() {
   const page = (
     <Container>
       {loadingPlayPlist ? (
-          loader
+        loader
       ) : (
         <>
           <div className="playlist-header">
@@ -71,6 +71,7 @@ function PlayList() {
               alt="Playlist cover"
             />
             <h1 className="playlist-name">{playlist.name}</h1>
+            <h2 className="playlist-description">{playlist.description}</h2>
             <div className="playlist-infos">
               <p className="playlist-owner">{playlist.owner.display_name}</p>
               <p className="playlist-nb-songs">
@@ -116,7 +117,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
-    gap: 30px;
+    gap: 10px;
     padding: 20px;
   }
 
@@ -130,7 +131,8 @@ const Container = styled.div`
   }
 
   .playlist-name,
-  .playlist-infos {
+  .playlist-infos,
+  .playlist-description {
     z-index: 2;
   }
 

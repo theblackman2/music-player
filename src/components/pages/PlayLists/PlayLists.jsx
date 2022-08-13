@@ -11,8 +11,6 @@ function PlayLists() {
   const [myPlayLists, setMyPlayLists] = useState([]);
   const [futuredPlaylists, setFuturedPlaylists] = useState([]);
   const [loadingFutured, setLoadingFutured] = useState(true);
-  const [likedSongs, setLikedSongs] = useState([]);
-  const [loadingLikedSongs, setLoadingLikedSongs] = useState(true);
   const [loadingMyPlayLists, setLoadingMyPlayLists] = useState(true);
 
   useEffect(() => {
@@ -21,6 +19,8 @@ function PlayLists() {
       .then((data) => setMyPlayLists(data.items))
       .then(() => setLoadingMyPlayLists(false));
   }, []);
+
+  // console.log(spotify)
 
   useEffect(() => {
     const fitured = spotify.getFeaturedPlaylists();

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PlayIcon from './../../assets/play.png'
 
 function PlayListUi({ name, description, imageUrl, id }) {
   return (
     <Container>
       <Link to={`./${id}`} className="play">
         <button>
-          <img src="./assets/play.png" alt="Play" />
+          <img src={PlayIcon} alt="Play" />
         </button>
       </Link>
       <img className="playlist-image" src={imageUrl} alt={`${name} cover`} />

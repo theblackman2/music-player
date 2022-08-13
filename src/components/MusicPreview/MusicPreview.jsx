@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import PlayIcon from './../../assets/play.png'
 
 function MusicPreview({ title, artist, duration, imageUrl }) {
   return (
     <Container>
       <span className="play">
         <button>
-          <img src="./assets/play.png" alt="Play" />
+          <img src={PlayIcon} alt="Play" />
         </button>
       </span>
       <img className="music-image" src={imageUrl} alt={`${title} cover`} />

@@ -3,6 +3,11 @@ import "./Login.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./../Loading/Loading";
+import SpotifyIcon from './../../../assets/icons/spotify.png'
+import GoogleIcon from './../../../assets/icons/google.png'
+import Casques from './../../../assets/casques.png'
+import BackAnimated from './../../../assets/back.gif'
+// import BackAnimated from './../../../assets/animated-back.gif'
 
 function Login() {
   const [token, setToken] = useState("");
@@ -40,7 +45,7 @@ function Login() {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timeOut);
   }, []);
@@ -62,8 +67,10 @@ function Login() {
     <Loading />
   ) : (
     <div className="login-page">
+      <img className="back" src={BackAnimated} alt="Animated back" />
+      <span className="filter"></span>
       <div className="login-img">
-        <img src="./casques-img.png" alt="Casques" />
+        <img src={Casques} alt="Casques" />
       </div>
       <div className="login-text">
         <h1>Spot Music by TheBlackMan</h1>
@@ -72,8 +79,8 @@ function Login() {
         </p>
         <button onClick={login} className="login-btn">
           Connexion
-          <img src="./assets/icons/spotify.png" alt="Spotify icon" />
-          <img src="./assets/icons/google.png" alt="Google icon" />
+          <img src={SpotifyIcon} alt="Spotify icon" />
+          <img src={GoogleIcon} alt="Google icon" />
         </button>
       </div>
     </div>
