@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import PlayIcon from './../../assets/play.png'
+import PlayIcon from "./../../assets/play.png";
 
 function PlayListUi({ name, description, imageUrl, id }) {
   return (
@@ -39,7 +39,7 @@ const Container = styled.div`
     left: 0;
     opacity: 0;
     padding: 1rem;
-    transition: .3s;
+    transition: 0.3s;
     z-index: 3;
     align-items: flex-end;
     justify-content: flex-end;

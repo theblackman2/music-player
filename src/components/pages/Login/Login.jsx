@@ -67,7 +67,7 @@ function Login() {
     <Loading />
   ) : (
     <div className="login-page">
-      <img className="back" src={BackAnimated} alt="Animated back" />
+      <img className="background" src={BackAnimated} alt="Animated back" />
       <span className="filter"></span>
       <div className="login-img">
         <img src={Casques} alt="Casques" />

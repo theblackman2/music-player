@@ -1,19 +1,15 @@
 import "./App.css";
 import Login from "./components/pages/Login/Login";
 import Home from "./components/pages/Home/Home";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PlayLists from "./components/pages/PlayLists/PlayLists";
 import Artists from "./components/pages/Artists/Artists";
 import SpotifyWebApi from "spotify-web-api-js";
 import { appContext } from "./contexts";
 import { useState, useEffect } from "react";
 import PlayList from "./components/pages/PlayList/PlayList";
+import Artist from "./components/pages/Artist/Artist";
+import Album from "./components/pages/Album/Album";
 
 const spotify = new SpotifyWebApi();
 
@@ -52,7 +48,7 @@ export default function App() {
 
   return (
     <appContext.Provider
-      value={{ token, spotify, playingSongUris, chooseSong, user, loadingUser }}
+      value={{ spotify, playingSongUris, chooseSong, user, loadingUser }}
     >
       <BrowserRouter>
         <Routes>
@@ -72,6 +68,8 @@ export default function App() {
           <Route path="playlists" element={<PlayLists />}></Route>
           <Route path="playlists/:id" element={<PlayList />} />
           <Route path="artists" element={<Artists />} />
+          <Route path="artists/:id" element={<Artist />} />
+          <Route path="artists/:id/albums/:albumId" element={<Album />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
