@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { appContext } from "../../../contexts";
 import AlbumUi from "../../AlbumUi/AlbumUi";
+import ArtistUi from "../../ArtistUi/ArtistUi";
 import Layout from "../../Layout";
 import PlayIcon from "./../../../assets/play.png";
 
@@ -12,8 +13,8 @@ function Artist() {
   const { spotify } = useContext(appContext);
   const [artist, setArtist] = useState({});
   const [loadingArtist, setLoadingArtist] = useState(true);
-  const [artistTopTracks, setArtistTopTracks] = useState([]);
-  const [loadingTopTracks, setLoadingTopTracks] = useState(true);
+  const [releatedArtists, setReleatedArtists] = useState([]);
+  const [loadingReleatedArtists, setLoadingReleatedArtists] = useState(true);
   const [albums, setAlbums] = useState([]);
   const [showAlbums, setShowAlbums] = useState(false);
   const [loadingAlbums, setLoadingAlbums] = useState(true);
@@ -21,14 +22,51 @@ function Artist() {
   useEffect(() => {
     const artist = spotify.getArtist(id);
     artist.then((data) => setArtist(data)).then(() => setLoadingArtist(false));
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    const releated = spotify.getArtistRelatedArtists(id);
+    releated
+      .then((data) => setReleatedArtists(data.artists))
+      .then(() => setLoadingReleatedArtists(false));
+  }, [id]);
+
+  useEffect(() => {
+    setLoadingArtist(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [id])
 
   useEffect(() => {
     const albums = spotify.getArtistAlbums(id);
     albums
       .then((data) => setAlbums(data.items))
       .then(() => setLoadingAlbums(false));
-  }, []);
+  }, [id]);
+
+  const releatedUi =
+    releatedArtists.length > 0 ? (
+      releatedArtists.map((item, index) => {
+        const name = item.name;
+        const followers = item.followers.total;
+        const imageUrl = item.images[2].url;
+        const id = item.id;
+
+        return (
+          <ArtistUi
+            key={index}
+            name={name}
+            followers={followers}
+            imageUrl={imageUrl}
+            id={id}
+          />
+        );
+      })
+    ) : (
+      <div>No artists like him</div>
+    );
 
   const albumsUi =
     albums.length > 0 ? (
@@ -48,7 +86,7 @@ function Artist() {
         );
       })
     ) : (
-      <div>Aucun album pour cet artiste</div>
+      <div>No albums for {artist.name}</div>
     );
 
   const topBtnStyle = {
@@ -60,7 +98,13 @@ function Artist() {
   };
 
   const page = loadingArtist ? (
-    <div>Loading</div>
+    <Load>
+      <div className="lds-facebook">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </Load>
   ) : (
     <Container>
       <div className="artist-header">
@@ -85,47 +129,52 @@ function Artist() {
             setShowAlbums(false);
           }}
           style={topBtnStyle}
-          className="top"
         >
-          Meilleurs titres
+          Overview
         </button>
         <button
           onClick={() => {
             setShowAlbums(true);
           }}
           style={albumBtnStyle}
-          className="albums"
         >
           Albums
         </button>
       </div>
       <div className="show-section">
-        {showAlbums ? loadingAlbums ? (
-          <LoadingAlbums>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-            <div className="items"></div>
-          </LoadingAlbums>
+        {showAlbums ? (
+          loadingAlbums ? (
+            <LoadingAlbums>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+              <div className="items"></div>
+            </LoadingAlbums>
+          ) : (
+            albumsUi
+          )
         ) : (
-          albumsUi
-        ) : <div>Top songs here</div>}
+          <OverView>
+            <h2 className="section-title">More like {artist.name}</h2>
+            <div className="releated">{releatedUi}</div>
+          </OverView>
+        )}
       </div>
     </Container>
   );
@@ -235,6 +284,67 @@ const LoadingAlbums = styled.div`
   @keyframes loading {
     100% {
       transform: translateX(100%);
+    }
+  }
+`;
+
+const OverView = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .releated {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+`;
+
+const Load = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+
+  .lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%,
+    100% {
+      top: 24px;
+      height: 32px;
     }
   }
 `;

@@ -59,35 +59,39 @@ function Album() {
   const page = (
     <Container>
       {loadingAlbum ? (
-        <div>Loading</div>
+        <Load>
+          <div className="lds-facebook">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </Load>
       ) : (
         <>
-        <div className="album-header">
-          <button className="play">
-            <img src={PlayIcon} alt="play" />
-          </button>
-          <div className="filter"></div>
-          <div className="album-image">
-            <img src={album.images[0].url} alt={`${album.name} cover`} />
-          </div>
-          <button onClick={goBack} className="back-btn">
-            Back
-          </button>
-          <div className="album-infos">
-            <h1 className="album-name">{album.name}</h1>
-            <h2 className="album-artist">{album.artists[0].name}</h2>
-            <p className="album-label">{album.label}</p>
-            <div className="others">
-              <p className="album-date">{album.release_date}</p>
-              <p className="album-songs-count">{`${album.tracks.total} song${
-                album.tracks.total > 1 ? "s" : ""
-              }`}</p>
+          <div className="album-header">
+            <button className="play">
+              <img src={PlayIcon} alt="play" />
+            </button>
+            <div className="filter"></div>
+            <div className="album-image">
+              <img src={album.images[0].url} alt={`${album.name} cover`} />
+            </div>
+            <button onClick={goBack} className="back-btn">
+              Back
+            </button>
+            <div className="album-infos">
+              <h1 className="album-name">{album.name}</h1>
+              <h2 className="album-artist">{album.artists[0].name}</h2>
+              <p className="album-label">{album.label}</p>
+              <div className="others">
+                <p className="album-date">{album.release_date}</p>
+                <p className="album-songs-count">{`${album.tracks.total} song${
+                  album.tracks.total > 1 ? "s" : ""
+                }`}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="musics">
-          {musics}
-        </div>
+          <div className="musics">{musics}</div>
         </>
       )}
     </Container>
@@ -190,5 +194,51 @@ const Music = styled.div`
 
   .track-name {
     font-weight: bold;
+  }
+`;
+
+const Load = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+
+  .lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%,
+    100% {
+      top: 24px;
+      height: 32px;
+    }
   }
 `;

@@ -41,31 +41,18 @@ function Artists() {
 
   const page = (
     <Container>
-      <h2 className="section-title">Ceux que vous écoutez le plus</h2>
+      {!loadingTopArtists && (
+        <h2 className="section-title">Ceux que vous écoutez le plus</h2>
+      )}
       <div className="artists">
         {loadingTopArtists ? (
-          <Loading>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-            <div className="item"></div>
-          </Loading>
+          <Load>
+            <div className="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </Load>
         ) : (
           topArtistsUi
         )}
@@ -93,42 +80,48 @@ const Container = styled.div`
   }
 `;
 
-const Loading = styled.div`
+const Load = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
-  justify-content: space-between;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 80px);
 
-  .item {
-    width: 150px;
-    min-width: 150px;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
+  .lds-facebook {
+    display: inline-block;
     position: relative;
-    overflow: hidden;
+    width: 80px;
+    height: 80px;
   }
-
-  .item:after {
-    content: "";
-    display: block;
+  .lds-facebook div {
+    display: inline-block;
     position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    transform: translateX(-100px);
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    animation: loading 0.8s infinite;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   }
-  @keyframes loading {
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%,
     100% {
-      transform: translateX(100%);
+      top: 24px;
+      height: 32px;
     }
   }
 `;

@@ -12,6 +12,12 @@ function PlayList() {
   const [loadingPlayPlist, setLoadingPlayList] = useState(true);
   const { spotify } = useContext(appContext);
 
+  const millisToMinutesAndSeconds = (millis) => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   useEffect(() => {
     const playlist = spotify.getPlaylist(id);
     playlist
@@ -49,6 +55,7 @@ function PlayList() {
                 </p>
               </div>
             </div>
+            <p className="music-duration">{millisToMinutesAndSeconds(item.track.duration_ms)}</p>
             <img src={PlayIcon} alt="Play" />
           </Music>
         );
