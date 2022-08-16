@@ -3,27 +3,27 @@ import Layout from "../../Layout";
 import { useContext, useState, useEffect } from "react";
 import { appContext } from "../../../contexts";
 import styled from "styled-components";
-import MusicPreview from "../../MusicPreview/MusicPreview";
-import MusicLoading from "../../MusicLoading/MusicLoading";
-import { nanoid } from "nanoid";
 import JumpBack from "../../JumpBack/JumpBack";
+import TopArtists from "../../TopArtsts/TopArtists";
 
 function Home() {
   const [lastPlayed, setLastPlayed] = useState([]);
   const [loadingLatests, setLoadingLatests] = useState(true);
   const { spotify } = useContext(appContext);
-
-  const millisToMinutesAndSeconds = (millis) => {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  };
+  const [topArtists, setTopArtists] = useState([]);
 
   useEffect(() => {
     const tracs = spotify.getMyRecentlyPlayedTracks();
     tracs
       .then((data) => setLastPlayed(data.items.slice(0, 10)))
       .then(() => setLoadingLatests(false));
+  }, []);
+
+  useEffect(() => {
+    const cats = spotify.getMyTopArtists({
+      limit: 5,
+    });
+    cats.then((data) => setTopArtists(data.items));
   }, []);
 
   const page = (
@@ -44,6 +44,8 @@ function Home() {
             </div>
             <JumpBack musics={lastPlayed} />
           </div>
+          <h2 className="section-title body-title">Your top artists</h2>
+          <TopArtists artists={topArtists} />
         </>
       )}
     </Container>
@@ -61,6 +63,10 @@ const Container = styled.div`
     display: flex;
     overflow-x: scroll;
     gap: 1rem;
+  }
+
+  .body-title {
+    margin: 1.5rem 0;
   }
 
   .head {
