@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../contexts";
-import { BsFillPersonLinesFill } from 'react-icons/bs'
-import { AiFillHome } from "react-icons/ai"
-import { TbPlaylist } from 'react-icons/tb'
-import { RiLogoutBoxFill } from 'react-icons/ri'
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { AiFillHome } from "react-icons/ai";
+import { TbPlaylist } from "react-icons/tb";
+import { RiLogoutBoxFill } from "react-icons/ri";
 
-function SideBar() {
+function SideBar({ showUser }) {
   const navigate = useNavigate();
 
   const { user, loadingUser } = useContext(appContext);
@@ -27,7 +27,7 @@ function SideBar() {
       </div>
     </LoadingUser>
   ) : (
-    <User>
+    <User onClick={showUser}>
       <div className="user-avatar">
         <img
           src={
@@ -125,6 +125,7 @@ const User = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  cursor: pointer;
 
   .user-avatar {
     width: 40px;

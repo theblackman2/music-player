@@ -5,9 +5,17 @@ import SpotifyPlayer from "react-spotify-web-playback";
 import { useContext } from "react";
 import { appContext } from "../contexts";
 import ScroolToTopIcon from "./../assets/down.png";
+import { useState } from "react";
+import ShowUser from "./ShowUser/ShowUser";
 
 function Layout({ page }) {
   const { token, playingSongUris } = useContext(appContext);
+  const [showUserInfos, setShowUserInfos] = useState(false);
+
+  const showUser = () => {
+    setShowUserInfos((prevState) => !prevState);
+  };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -16,7 +24,7 @@ function Layout({ page }) {
   };
   return (
     <Container>
-      <SideBar />
+      <SideBar showUser={showUser} />
       <SearchBar />
       <div className="page">{page}</div>
       <div className="player">
@@ -25,6 +33,7 @@ function Layout({ page }) {
           uris={["spotify:playlist:3H6ZPTvBOEDNm98FTEG3gy"]}
         /> */}
       </div>
+      {showUserInfos && <ShowUser showUser={showUser} />}
       <button onClick={scrollToTop} className="top">
         <img src={ScroolToTopIcon} alt="Scroll to top" />
       </button>
