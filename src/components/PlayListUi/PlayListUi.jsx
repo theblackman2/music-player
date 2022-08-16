@@ -1,16 +1,21 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PlayIcon from "./../../assets/play.png";
+import Uknow from "./../../assets/uknown.png";
 
 function PlayListUi({ name, description, imageUrl, id }) {
   return (
     <Container>
-      <Link to={`./${id}`} className="play">
+      <Link to={`/playlists/${id}`} className="play">
         <button>
           <img src={PlayIcon} alt="Play" />
         </button>
       </Link>
-      <img className="playlist-image" src={imageUrl} alt={`${name} cover`} />
+      <img
+        className="playlist-image"
+        src={imageUrl === "" ? Uknow : imageUrl}
+        alt={`${name} cover`}
+      />
       <div className="playlist-infos">
         <h2 className="playlist-name">{name}</h2>
         <p className="playlist-description">{description}</p>
@@ -29,6 +34,7 @@ const Container = styled.div`
   display: flex;
   cursor: pointer;
   position: relative;
+  overflow: hidden;
 
   .play {
     display: flex;

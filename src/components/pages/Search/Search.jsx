@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { appContext } from "../../../contexts";
 import ArtistUi from "../../ArtistUi/ArtistUi";
 import MusicPreview from "../../MusicPreview/MusicPreview";
+import PlayListUi from "../../PlayListUi/PlayListUi";
 import UknownUserImage from "./../../../assets/uknown.png";
 import AlbumUi from "./../../AlbumUi/AlbumUi";
 
@@ -72,7 +73,7 @@ function Search({ close }) {
     if (searchTerm.length > 0) {
       const playlists = spotify.searchPlaylists(searchTerm, { limit: 10 });
       playlists
-        .then((data) => setPlaylists(data))
+        .then((data) => setPlaylists(data.playlists.items))
         .then(() =>
           setSearchState((prevState) => {
             return {
@@ -145,7 +146,7 @@ function Search({ close }) {
     </div>
   );
 
-  const albumUi = (
+  const albumsUi = (
     <div className="search-section">
       <h2 className="section-title">Albums</h2>
       <div className="section-results">
@@ -175,9 +176,37 @@ function Search({ close }) {
     </div>
   );
 
+  const playlistsUi = (
+    <div className="search-section">
+      <h2 className="section-title">Playlists</h2>
+      <div className="section-results">
+        {playlists.length > 0 ? (
+          playlists.map((item, index) => {
+            const name = item.name;
+            const description = item.description;
+            const imageUrl = item.images.length > 0 ? item.images[0].url : "";
+            const id = item.id;
+
+            return (
+              <PlayListUi
+                key={index}
+                name={name}
+                description={description}
+                imageUrl={imageUrl}
+                id={id}
+              />
+            );
+          })
+        ) : (
+          <h3>No playlists for this term</h3>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <Container>
-      {songsUi} {artstsUi} {albumUi}
+      {songsUi} {artstsUi} {albumsUi} {playlistsUi}
     </Container>
   );
 }
