@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../contexts";
-import HomeIcon from './../../assets/icons/home.png'
-import PlayListIcon from './../../assets/icons/playlist.png'
-import ArtisteIcon from './../../assets/icons/person.png'
+import { BsFillPersonLinesFill } from 'react-icons/bs'
+import { AiFillHome } from "react-icons/ai"
+import { TbPlaylist } from 'react-icons/tb'
+import { RiLogoutBoxFill } from 'react-icons/ri'
 
 function SideBar() {
   const navigate = useNavigate();
@@ -50,27 +51,28 @@ function SideBar() {
         to="/"
       >
         {" "}
-        <img src={HomeIcon} alt="Home" />
-        Accueil
+        <AiFillHome />
+        Home
       </NavLink>
       <NavLink
         className={({ isActive }) => (isActive ? "link-active" : "link")}
         to="/playlists"
       >
         {" "}
-        <img src={PlayListIcon} alt="PlayList" />
-        Playlistes
+        <TbPlaylist />
+        Playlists
       </NavLink>
       <NavLink
         className={({ isActive }) => (isActive ? "link-active" : "link")}
         to="/artists"
       >
         {" "}
-        <img src={ArtisteIcon} alt="Artistes" />
-        Artistes
+        <BsFillPersonLinesFill />
+        Artists
       </NavLink>
       <button onClick={logout} className="logout-btn">
-        Déconnexion
+        <RiLogoutBoxFill />
+        Logout
       </button>
     </Container>
   );

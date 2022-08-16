@@ -26,16 +26,13 @@ function PlayList() {
   }, []);
 
   const loader = (
-    <Loader>
-      <div className="loader-head"></div>
-      <div className="loader-body">
-        <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div>
-        <div className="item"></div>
+    <Load>
+      <div className="lds-facebook">
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-    </Loader>
+    </Load>
   );
 
   const musics =
@@ -55,7 +52,9 @@ function PlayList() {
                 </p>
               </div>
             </div>
-            <p className="music-duration">{millisToMinutesAndSeconds(item.track.duration_ms)}</p>
+            <p className="music-duration">
+              {millisToMinutesAndSeconds(item.track.duration_ms)}
+            </p>
             <img src={PlayIcon} alt="Play" />
           </Music>
         );
@@ -191,50 +190,48 @@ const Music = styled.div`
   }
 `;
 
-const Loader = styled.div`
-  .loader-head {
-    width: 100%;
-    height: 250px;
-    background-color: #716d67;
+const Load = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+
+  .lds-facebook {
+    display: inline-block;
     position: relative;
-    overflow: hidden;
+    width: 80px;
+    height: 80px;
   }
-
-  .loader-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem;
-  }
-
-  .item {
-    width: 100%;
-    height: 60px;
-    background-color: #716d67;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .item:after,
-  .loader-head:after {
-    content: "";
-    display: block;
+  .lds-facebook div {
+    display: inline-block;
     position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    transform: translateX(-100px);
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    animation: loading 0.8s infinite;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   }
-  @keyframes loading {
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%,
     100% {
-      transform: translateX(100%);
+      top: 24px;
+      height: 32px;
     }
   }
 `;

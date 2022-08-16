@@ -6,6 +6,7 @@ import styled from "styled-components";
 import MusicPreview from "../../MusicPreview/MusicPreview";
 import MusicLoading from "../../MusicLoading/MusicLoading";
 import { nanoid } from "nanoid";
+import JumpBack from "../../JumpBack/JumpBack";
 
 function Home() {
   const [lastPlayed, setLastPlayed] = useState([]);
@@ -25,32 +26,8 @@ function Home() {
       .then(() => setLoadingLatests(false));
   }, []);
 
-  const lastsUi =
-    lastPlayed.length > 0
-      ? lastPlayed.map((item) => {
-          const imageUrl = item.track.album.images[0].url;
-          const id = item.track.id;
-          const artist = item.track.artists[0].name;
-          const duration = millisToMinutesAndSeconds(item.track.duration_ms);
-          const title = item.track.name;
-          return (
-            <MusicPreview
-              key={nanoid()}
-              title={title}
-              artist={artist}
-              duration={duration}
-              imageUrl={imageUrl}
-              id={id}
-            />
-          );
-        })
-      : null;
-
   const page = (
     <Container>
-      {!loadingLatests && (
-        <h2 className="section-title">Derniers morceaux joués</h2>
-      )}
       {loadingLatests ? (
         <Load>
           <div className="lds-facebook">
@@ -60,7 +37,14 @@ function Home() {
           </div>
         </Load>
       ) : (
-        <div className="songs">{lastsUi}</div>
+        <>
+          <div className="head">
+            <div className="intro-image">
+              <img src="./music.jpg" alt="Intro cover" />
+            </div>
+            <JumpBack musics={lastPlayed} />
+          </div>
+        </>
       )}
     </Container>
   );
@@ -71,7 +55,7 @@ function Home() {
 export default Home;
 
 const Container = styled.div`
-  padding: 1rem;
+  padding: 2rem;
 
   .songs {
     display: flex;
@@ -79,9 +63,22 @@ const Container = styled.div`
     gap: 1rem;
   }
 
-  .section-title {
-    margin-bottom: 10px;
-    margin-top: 20px;
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .intro-image {
+    width: 40%;
+    height: 300px;
+  }
+
+  .intro-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 

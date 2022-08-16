@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <appContext.Provider
-      value={{ spotify, playingSongUris, chooseSong, user, loadingUser }}
+      value={{ token, spotify, playingSongUris, chooseSong, user, loadingUser }}
     >
       <BrowserRouter>
         <Routes>

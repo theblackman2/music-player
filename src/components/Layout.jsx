@@ -22,7 +22,7 @@ function Layout({ page }) {
       <div className="player">
         {/* <SpotifyPlayer
           token={token}
-          uris={playingSongUris}
+          uris={["spotify:playlist:3H6ZPTvBOEDNm98FTEG3gy"]}
         /> */}
       </div>
       <button onClick={scrollToTop} className="top">
