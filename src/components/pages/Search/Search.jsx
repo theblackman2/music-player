@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import styled from "styled-components";
 import { appContext } from "../../../contexts";
+import ArtistUi from "../../ArtistUi/ArtistUi";
 import MusicPreview from "../../MusicPreview/MusicPreview";
+import UknownUserImage from "./../../../assets/uknown.png";
 
 function Search({ close }) {
   const [artists, setArtists] = useState([]);
@@ -21,7 +23,7 @@ function Search({ close }) {
     if (searchTerm.length > 0) {
       const artists = spotify.searchArtists(searchTerm, { limit: 10 });
       artists
-        .then((data) => setArtists(data))
+        .then((data) => setArtists(data.artists.items))
         .then(() =>
           setSearchState((prevState) => {
             return {
@@ -113,7 +115,40 @@ function Search({ close }) {
     </div>
   );
 
-  return <Container>{songsUi}</Container>;
+  const artstsUi = (
+    <div className="search-section">
+      <h2 className="section-title">Artists</h2>
+      <div className="section-results">
+        {artists.length > 0 ? (
+          artists.map((item, index) => {
+            const id = item.id;
+            const name = item.name;
+            const followers = item.followers.total;
+            const imageUrl =
+              item.images.length > 0 ? item.images[0].url : UknownUserImage;
+
+            return (
+              <ArtistUi
+                key={index}
+                name={name}
+                followers={followers}
+                id={id}
+                imageUrl={imageUrl}
+              />
+            );
+          })
+        ) : (
+          <h3>No artists for this term</h3>
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <Container>
+      {songsUi} {artstsUi}
+    </Container>
+  );
 }
 
 export default Search;
