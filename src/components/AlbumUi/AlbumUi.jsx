@@ -2,15 +2,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PlayIcon from "./../../assets/play.png";
 
-function AlbumUi({ id, imageUrl, name, date }) {
+function AlbumUi({ id, imageUrl, name, date, artist, artistId }) {
   return (
-    <Link to={`./albums/${id}`}>
+    <Link to={`/albums/${id}`}>
       <Contaner>
         <img src={PlayIcon} alt="play" className="play" />
         <div className="album-image">
           <img src={imageUrl} alt={`${name} cover`} />
         </div>
         <h2 className="album-name">{name}</h2>
+        <h3 className="album-artist">{artist}</h3>
         <p className="album-date">{date}</p>
       </Contaner>
     </Link>
@@ -51,6 +52,10 @@ const Contaner = styled.div`
   .album-image img {
     width: 100%;
     height: 100%;
+  }
+
+  .album-artist {
+    font-size: 12px;
   }
 
   .album-name {

@@ -5,6 +5,7 @@ import { appContext } from "../../../contexts";
 import ArtistUi from "../../ArtistUi/ArtistUi";
 import MusicPreview from "../../MusicPreview/MusicPreview";
 import UknownUserImage from "./../../../assets/uknown.png";
+import AlbumUi from "./../../AlbumUi/AlbumUi";
 
 function Search({ close }) {
   const [artists, setArtists] = useState([]);
@@ -55,7 +56,7 @@ function Search({ close }) {
     if (searchTerm.length > 0) {
       const albums = spotify.searchAlbums(searchTerm, { limit: 10 });
       albums
-        .then((data) => setAlbums(data))
+        .then((data) => setAlbums(data.albums.items))
         .then(() =>
           setSearchState((prevState) => {
             return {
@@ -144,9 +145,39 @@ function Search({ close }) {
     </div>
   );
 
+  const albumUi = (
+    <div className="search-section">
+      <h2 className="section-title">Albums</h2>
+      <div className="section-results">
+        {albums.length > 0 ? (
+          albums.map((item, index) => {
+            const id = item.id;
+            const imageUrl = item.images[1].url;
+            const name = item.name;
+            const date = item.release_date;
+            const artist = item.artists[0].name;
+
+            return (
+              <AlbumUi
+                key={index}
+                id={id}
+                imageUrl={imageUrl}
+                name={name}
+                date={date}
+                artist={artist}
+              />
+            );
+          })
+        ) : (
+          <h3>No albums for this term</h3>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <Container>
-      {songsUi} {artstsUi}
+      {songsUi} {artstsUi} {albumUi}
     </Container>
   );
 }

@@ -71,7 +71,7 @@ export default function App() {
           <Route path="playlists/:id" element={<PlayList />} />
           <Route path="artists" element={<Artists />} />
           <Route path="artists/:id" element={<Artist />} />
-          <Route path="artists/:id/albums/:albumId" element={<Album />} />
+          <Route path="albums/:albumId" element={<Album />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

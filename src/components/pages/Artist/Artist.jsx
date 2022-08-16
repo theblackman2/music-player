@@ -74,7 +74,9 @@ function Artist() {
         const name = item.name;
         const imageUrl = item.images[1].url;
         const date = item.release_date.split("-")[0];
+        // const artist = item.artists[O].name
         const id = item.id;
+        const artist = item.artists[0].name;
         return (
           <AlbumUi
             key={index}
@@ -82,6 +84,7 @@ function Artist() {
             imageUrl={imageUrl}
             date={date}
             id={id}
+            artist={artist}
           />
         );
       })
