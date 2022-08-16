@@ -2,6 +2,12 @@ import styled from "styled-components";
 import PlayIcon from './../../assets/play.png'
 
 function MusicPreview({ title, artist, duration, imageUrl }) {
+
+  const millisToMinutesAndSeconds = (millis) => {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
   return (
     <Container>
       <span className="play">
@@ -11,9 +17,9 @@ function MusicPreview({ title, artist, duration, imageUrl }) {
       </span>
       <img className="music-image" src={imageUrl} alt={`${title} cover`} />
       <div className="music-infos">
-        <h2 className="music-title">{title}</h2>
+        <h2 className="music-title">{title.slice(0, 20)}</h2>
         <h3 className="music-artist">{artist}</h3>
-        <p className="music-duration">{duration}</p>
+        <p className="music-duration">{millisToMinutesAndSeconds(duration)}</p>
       </div>
     </Container>
   );
@@ -24,41 +30,35 @@ export default MusicPreview;
 const Container = styled.div`
   width: 150px;
   min-width: 150px;
-  height: 200px;
-  background-color: #5e5461;
+  height: 220px;
+  background-color: #26202C;
   padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-end;
+  gap : 1rem;
   position: relative;
-  cursor: pointer;
 
   .play {
-    display: flex;
     position: absolute;
+    top: 0;
+    padding-top: 50%;
+    padding-left: 70%;
+    left: 0;
+    display: bloc;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #5e5461;
     opacity: 0;
-    z-index: 3;
-    transition: .3s;
-    align-items: center;
-    justify-content: center;
+    transition: 0.3s;
   }
 
   .play:hover {
-    opacity: .7;
+    opacity: 1;
   }
 
   .music-image {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+    height: 50%;
   }
 
   .music-infos {
@@ -66,16 +66,19 @@ const Container = styled.div`
     flex-direction: column;
     gap: 8px;
     z-index: 1;
-    text-shadow: 1px 1px 4px black;
   }
 
   .music-title {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
   }
 
   .music-artist {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
+  }
+
+  .music-duration {
+    font-size: 11px;
   }
 `;

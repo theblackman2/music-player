@@ -46,9 +46,11 @@ export default function App() {
     setLoaded(true);
   }, []);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <appContext.Provider
-      value={{ token, spotify, playingSongUris, chooseSong, user, loadingUser }}
+      value={{ token, spotify, playingSongUris, chooseSong, user, loadingUser, searchTerm, setSearchTerm }}
     >
       <BrowserRouter>
         <Routes>

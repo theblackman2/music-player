@@ -7,10 +7,12 @@ import { appContext } from "../contexts";
 import ScroolToTopIcon from "./../assets/down.png";
 import { useState } from "react";
 import ShowUser from "./ShowUser/ShowUser";
+import Search from "./pages/Search/Search";
 
 function Layout({ page }) {
   const { token, playingSongUris } = useContext(appContext);
   const [showUserInfos, setShowUserInfos] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   const showUser = () => {
     setShowUserInfos((prevState) => !prevState);
@@ -22,11 +24,13 @@ function Layout({ page }) {
       behavior: "smooth",
     });
   };
+
   return (
     <Container>
-      <SideBar showUser={showUser} />
-      <SearchBar />
-      <div className="page">{page}</div>
+      {!showSearch && <SideBar showUser={showUser} />}
+      <SearchBar show={showSearch} showSearch={setShowSearch} />
+      {!showSearch && <div className="page">{page}</div>}
+      {showSearch && <Search close={setShowSearch} />}
       <div className="player">
         {/* <SpotifyPlayer
           token={token}
