@@ -5,26 +5,25 @@ import { useContext } from "react";
 import { appContext } from "../../contexts";
 
 function SearchBar({ showSearch, show }) {
-  const { searchTerm, setSearchTerm } = useContext(appContext);
-  const handleShowPage = () => {
-    showSearch(true);
-  };
-  const closePage = () => {
-    showSearch(false);
-    setSearchTerm("");
-  };
+  const {
+    searchTerm,
+    setSearchTerm,
+    searching,
+    openSearching,
+    closeSearching,
+  } = useContext(appContext);
 
   return (
     <Container>
-      {show && (
-        <button className="close-btn" onClick={closePage}>
+      {searching && (
+        <button className="close-btn" onClick={closeSearching}>
           <AiFillCloseCircle />
         </button>
       )}
 
       <div className="form">
         <input
-          onFocus={handleShowPage}
+          onFocus={openSearching}
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

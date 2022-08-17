@@ -10,7 +10,7 @@ import ShowUser from "./ShowUser/ShowUser";
 import Search from "./pages/Search/Search";
 
 function Layout({ page }) {
-  const { token, playingSongUris } = useContext(appContext);
+  const { token, playingSongUris, searching, openSearching } = useContext(appContext);
   const [showUserInfos, setShowUserInfos] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -27,10 +27,10 @@ function Layout({ page }) {
 
   return (
     <Container>
-      {!showSearch && <SideBar showUser={showUser} />}
-      <SearchBar show={showSearch} showSearch={setShowSearch} />
-      {!showSearch && <div className="page">{page}</div>}
-      {showSearch && <Search close={setShowSearch} />}
+      {!searching && <SideBar showUser={showUser} />}
+      <SearchBar />
+      {!searching && <div className="page">{page}</div>}
+      {searching && <Search close={setShowSearch} />}
       <div className="player">
         {/* <SpotifyPlayer
           autoPlay={true}

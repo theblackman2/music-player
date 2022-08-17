@@ -10,7 +10,9 @@ import PlayIcon from "./../../../assets/play.png";
 function Album() {
   const navigate = useNavigate();
   const { albumId } = useParams();
-  const { spotify } = useContext(appContext);
+  const { spotify, closeSearching } = useContext(appContext);
+
+  useEffect(() => closeSearching, [albumId]);
 
   const [album, setAlbum] = useState({});
   const [loadingAlbum, setLoadingAlbum] = useState(true);

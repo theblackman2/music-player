@@ -10,7 +10,16 @@ function PlayList() {
   const { id } = useParams();
   const [playlist, setPlayList] = useState({});
   const [loadingPlayPlist, setLoadingPlayList] = useState(true);
-  const { spotify } = useContext(appContext);
+  const { spotify, closeSearching } = useContext(appContext);
+
+  useEffect(() => closeSearching, [id]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [id]);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -23,7 +32,7 @@ function PlayList() {
     playlist
       .then((data) => setPlayList(data))
       .then(() => setLoadingPlayList(false));
-  }, []);
+  }, [id]);
 
   const loader = (
     <Load>
@@ -77,7 +86,10 @@ function PlayList() {
               alt="Playlist cover"
             />
             <h1 className="playlist-name">{playlist.name}</h1>
-            <h2 className="playlist-description">{playlist.description}</h2>
+            <h2
+              className="playlist-description"
+              dangerouslySetInnerHTML={{ __html: playlist.description }}
+            ></h2>
             <div className="playlist-infos">
               <p className="playlist-owner">{playlist.owner.display_name}</p>
               <p className="playlist-nb-songs">

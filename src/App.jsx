@@ -20,9 +20,19 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [playingSongUris, setPlayingSongUris] = useState([]);
   const [mustLogin, setMustLogin] = useState(false);
+  const [searching, setSearching] = useState(false);
 
   const chooseSong = (uris) => {
     setPlayingSongUris(uris);
+  };
+
+  const closeSearching = () => {
+    setSearchTerm("");
+    setSearching(false);
+  };
+
+  const openSearching = () => {
+    setSearching(true);
   };
 
   useEffect(() => {
@@ -50,7 +60,19 @@ export default function App() {
 
   return (
     <appContext.Provider
-      value={{ token, spotify, playingSongUris, chooseSong, user, loadingUser, searchTerm, setSearchTerm }}
+      value={{
+        token,
+        spotify,
+        playingSongUris,
+        chooseSong,
+        user,
+        loadingUser,
+        searchTerm,
+        setSearchTerm,
+        searching,
+        closeSearching,
+        openSearching,
+      }}
     >
       <BrowserRouter>
         <Routes>
