@@ -47,7 +47,7 @@ function PlayLists() {
         );
       })
     ) : (
-      <div>Vous n'avez pas encore de playliste</div>
+      <div>You don't have any playlist, please create one.</div>
     );
 
   const futuredUi =
@@ -71,13 +71,13 @@ function PlayLists() {
       })
     ) : (
       <div>
-        Nous ne pouvons rien vous proposer, écoutez quelques musiques avant.
+        Nothing to show, listen for some musics.
       </div>
     );
 
   const page = (
     <Container>
-      <h2 className="section-title">Vos playlistes</h2>
+      <h2 className="section-title">Your playlists</h2>
       <div className="songs">
         <LikedSongs />
         {loadingMyPlayLists ? (
@@ -89,7 +89,7 @@ function PlayLists() {
           playListsUi
         )}
       </div>
-      <h2 className="section-title">Quelques propositions</h2>
+      <h2 className="section-title">Made just for you</h2>
       <div className="songs">
         {loadingFutured ? (
           <LoadingPlaylists>

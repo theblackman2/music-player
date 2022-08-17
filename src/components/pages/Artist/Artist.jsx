@@ -7,6 +7,7 @@ import AlbumUi from "../../AlbumUi/AlbumUi";
 import ArtistUi from "../../ArtistUi/ArtistUi";
 import Layout from "../../Layout";
 import PlayIcon from "./../../../assets/play.png";
+import UknownUserImage from "./../../../assets/uknown.png";
 
 function Artist() {
   const { id } = useParams();
@@ -14,7 +15,6 @@ function Artist() {
   const [artist, setArtist] = useState({});
   const [loadingArtist, setLoadingArtist] = useState(true);
   const [releatedArtists, setReleatedArtists] = useState([]);
-  const [loadingReleatedArtists, setLoadingReleatedArtists] = useState(true);
   const [albums, setAlbums] = useState([]);
   const [showAlbums, setShowAlbums] = useState(false);
   const [loadingAlbums, setLoadingAlbums] = useState(true);
@@ -26,18 +26,16 @@ function Artist() {
 
   useEffect(() => {
     const releated = spotify.getArtistRelatedArtists(id);
-    releated
-      .then((data) => setReleatedArtists(data.artists))
-      .then(() => setLoadingReleatedArtists(false));
+    releated.then((data) => setReleatedArtists(data.artists));
   }, [id]);
 
   useEffect(() => {
     setLoadingArtist(true);
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
-    })
-  }, [id])
+      behavior: "smooth",
+    });
+  }, [id]);
 
   useEffect(() => {
     const albums = spotify.getArtistAlbums(id);
@@ -51,7 +49,8 @@ function Artist() {
       releatedArtists.map((item, index) => {
         const name = item.name;
         const followers = item.followers.total;
-        const imageUrl = item.images[2].url;
+        const imageUrl =
+          item.images.length > 0 ? item.images[2].url : UknownUserImage;
         const id = item.id;
 
         return (

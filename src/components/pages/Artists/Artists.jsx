@@ -36,13 +36,13 @@ function Artists() {
         );
       })
     ) : (
-      <div>Vous n'avez encore rien écouté</div>
+      <div>Nothing to show, listen for some musics</div>
     );
 
   const page = (
     <Container>
       {!loadingTopArtists && (
-        <h2 className="section-title">Ceux que vous écoutez le plus</h2>
+        <h2 className="section-title">Who you listen the most</h2>
       )}
       <div className="artists">
         {loadingTopArtists ? (

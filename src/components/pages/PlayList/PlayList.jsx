@@ -82,7 +82,7 @@ function PlayList() {
               <p className="playlist-owner">{playlist.owner.display_name}</p>
               <p className="playlist-nb-songs">
                 {" "}
-                {playlist.tracks.total} chansons
+                {playlist.tracks.total} songs
               </p>
               <button>
                 <img src={PlayIcon} alt="Play icon" />

@@ -28,7 +28,7 @@ function SearchBar({ showSearch, show }) {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Taper votre reccherche ici"
+          placeholder="Type something to search"
         />
         <FaSearch className="icon-search" />
       </div>

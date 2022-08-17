@@ -6,19 +6,21 @@ import Uknow from "./../../assets/uknown.png";
 function PlayListUi({ name, description, imageUrl, id }) {
   return (
     <Container>
-      <Link to={`/playlists/${id}`} className="play">
-        <button>
-          <img src={PlayIcon} alt="Play" />
-        </button>
+      <Link className="playlist-image" to={`/playlists/${id}`}>
+        <img src={imageUrl === "" ? Uknow : imageUrl} alt={`${name} cover`} />
       </Link>
-      <img
-        className="playlist-image"
-        src={imageUrl === "" ? Uknow : imageUrl}
-        alt={`${name} cover`}
-      />
+
       <div className="playlist-infos">
-        <h2 className="playlist-name">{name}</h2>
-        <p className="playlist-description">{description}</p>
+        <Link to={`/playlists/${id}`}>
+          <h2 className="playlist-name">{name}</h2>
+        </Link>
+        <p
+          className="playlist-description"
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></p>
+        <button className="play-btn">
+          <img src={PlayIcon} alt="play" />
+        </button>
       </div>
     </Container>
   );
@@ -32,40 +34,33 @@ const Container = styled.div`
   height: 200px;
   background-color: #5e5461;
   display: flex;
-  cursor: pointer;
   position: relative;
   overflow: hidden;
-
-  .play {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    padding: 1rem;
-    transition: 0.3s;
-    z-index: 3;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
-  .play:hover {
-    opacity: 1;
-  }
 
   .playlist-image {
     width: 50%;
     height: 100%;
+  }
+
+  .playlist-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
+  .play-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
   .playlist-infos {
+    width: 50%;
     display: flex;
     flex-direction: column;
     padding: 8px;
     gap: 15px;
+    position: relative;
   }
 
   .playlist-name {

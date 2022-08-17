@@ -33,6 +33,8 @@ function Layout({ page }) {
       {showSearch && <Search close={setShowSearch} />}
       <div className="player">
         {/* <SpotifyPlayer
+          autoPlay={true}
+          play={true}
           token={token}
           uris={["spotify:playlist:3H6ZPTvBOEDNm98FTEG3gy"]}
         /> */}

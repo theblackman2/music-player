@@ -4,17 +4,19 @@ import PlayIcon from "./../../assets/play.png";
 
 function AlbumUi({ id, imageUrl, name, date, artist, artistId }) {
   return (
-    <Link to={`/albums/${id}`}>
-      <Contaner>
-        <img src={PlayIcon} alt="play" className="play" />
-        <div className="album-image">
+    <Contaner>
+      <img src={PlayIcon} alt="play" className="play" />
+      <div className="album-image">
+        <Link to={`/albums/${id}`}>
           <img src={imageUrl} alt={`${name} cover`} />
-        </div>
+        </Link>
+      </div>
+      <Link to={`/albums/${id}`}>
         <h2 className="album-name">{name}</h2>
-        <h3 className="album-artist">{artist}</h3>
-        <p className="album-date">{date}</p>
-      </Contaner>
-    </Link>
+      </Link>
+      <h3 className="album-artist">{artist}</h3>
+      <p className="album-date">{date}</p>
+    </Contaner>
   );
 }
 
@@ -22,6 +24,7 @@ export default AlbumUi;
 
 const Contaner = styled.div`
   width: 200px;
+  min-width: 200px;
   min-height: 280px;
   background-color: rgba(178, 178, 178, 0.6);
   padding: 10px;
@@ -29,7 +32,6 @@ const Contaner = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 0.5rem;
-  cursor: pointer;
   position: relative;
   transition: 0.5s ease;
 
@@ -42,6 +44,7 @@ const Contaner = styled.div`
     right: 14px;
     top: 176px;
     transition: 0.3s;
+    cursor: pointer;
   }
 
   .album-image {

@@ -206,7 +206,27 @@ function Search({ close }) {
 
   return (
     <Container>
-      {songsUi} {artstsUi} {albumsUi} {playlistsUi}
+      {searchTerm.length > 0 ? (
+        <>
+          {searchState.artists ? (
+            <Load>
+              <div className="lds-facebook">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </Load>
+          ) : (
+            <>
+              {songsUi} {artstsUi} {albumsUi} {playlistsUi}
+            </>
+          )}
+        </>
+      ) : (
+        <div className="nothing">
+          <h2>Search somthing</h2>
+        </div>
+      )}
     </Container>
   );
 }
@@ -229,10 +249,65 @@ const Container = styled.div`
     gap: 1rem;
   }
 
+  .nothing {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .section-results {
     display: flex;
     align-items: center;
     gap: 1rem;
     overflow-x: scroll;
+  }
+`;
+
+const Load = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+
+  .lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  .lds-facebook div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+  }
+  .lds-facebook div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+  }
+  .lds-facebook div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+  }
+  @keyframes lds-facebook {
+    0% {
+      top: 8px;
+      height: 64px;
+    }
+    50%,
+    100% {
+      top: 24px;
+      height: 32px;
+    }
   }
 `;

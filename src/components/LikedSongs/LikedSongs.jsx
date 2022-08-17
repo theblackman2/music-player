@@ -7,7 +7,7 @@ function LikedSongs() {
   const [likedSongs, setLikedSongs] = useState([]);
   const [loadingLikedSongs, setLoadingLikedSongs] = useState(true);
 
-  const { spotify } = useContext(appContext);
+  const { spotify, user } = useContext(appContext);
 
   useEffect(() => {
     const liked = spotify.getMySavedTracks();
@@ -26,11 +26,17 @@ function LikedSongs() {
         </Loading>
       ) : (
         <div className="liked-songs">
-          <h2>Les chansons que vous aimez</h2>
-          <p>Total : {likedSongs.total}</p>
-          <button>
-            <img src={PlayIcon} alt="Play" />
-          </button>
+          <h2>Loved by {user.display_name}</h2>
+          {likedSongs.total === 0 ? (
+            <h2>Nothing to show, like some songs</h2>
+          ) : (
+            <>
+              <p>Total : {likedSongs.total}</p>
+              <button>
+                <img src={PlayIcon} alt="Play" />
+              </button>
+            </>
+          )}
         </div>
       )}
     </Container>
