@@ -81,7 +81,8 @@ export default SideBar;
 
 const Container = styled.div`
   width: 200px;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   position: fixed;
   display: flex;
   flex-direction: column;

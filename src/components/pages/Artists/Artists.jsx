@@ -6,7 +6,7 @@ import ArtistUi from "../../ArtistUi/ArtistUi";
 import Layout from "../../Layout";
 
 function Artists() {
-  const { spotify, user } = useContext(appContext);
+  const { spotify } = useContext(appContext);
   const [topArtists, setTopArtsts] = useState([]);
   const [loadingTopArtists, setLoadingTopArtsts] = useState(true);
 
@@ -68,10 +68,15 @@ const Container = styled.div`
   padding: 2rem;
 
   .section-title {
-    margin: 1rem;
+    padding: 1rem;
+    width: 100%;
+    background-color: #0e0b1e;
+    position: fixed;
+    top: 80px;
   }
 
   .artists {
+    margin-top: 35px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

@@ -23,7 +23,7 @@ function TopArtists({ artists }) {
         );
       })
     ) : (
-      <div>Vous n'avez encore rien écouté</div>
+      <div>{"Vous n'avez encore rien écouté"}</div>
     );
   return <Container>{artistsUi}</Container>;
 }
@@ -36,4 +36,5 @@ const Container = styled.div`
   align-items: center;
   gap: 1.5rem;
   justify-content: center;
+  flex-wrap: wrap;
 `;

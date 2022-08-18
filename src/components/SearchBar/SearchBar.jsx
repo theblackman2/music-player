@@ -4,7 +4,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { useContext } from "react";
 import { appContext } from "../../contexts";
 
-function SearchBar({ showSearch, show }) {
+function SearchBar() {
   const {
     searchTerm,
     setSearchTerm,

@@ -36,7 +36,7 @@ function Layout({ page }) {
       {!searching && <div className="page">{page}</div>}
       {searching && <Search />}
       <div className="player">
-        {/* <SpotifyPlayer
+        <SpotifyPlayer
           styles={{
             activeColor: "#fff",
             bgColor: "#0e0b1e",
@@ -54,7 +54,7 @@ function Layout({ page }) {
           play={play}
           token={token}
           uris={playingSongUris}
-        /> */}
+        />
       </div>
       {showUserInfos && <ShowUser showUser={showUser} />}
       <button onClick={scrollToTop} className="top">

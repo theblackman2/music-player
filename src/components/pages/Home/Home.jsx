@@ -9,7 +9,7 @@ import TopArtists from "../../TopArtsts/TopArtists";
 function Home() {
   const [lastPlayed, setLastPlayed] = useState([]);
   const [loadingLatests, setLoadingLatests] = useState(true);
-  const { spotify } = useContext(appContext);
+  const { spotify, screenDimensions } = useContext(appContext);
   const [topArtists, setTopArtists] = useState([]);
 
   useEffect(() => {
@@ -39,9 +39,13 @@ function Home() {
       ) : (
         <>
           <div className="head">
-            <div className="intro-image">
-              <img src="./music.jpg" alt="Intro cover" />
-            </div>
+            {screenDimensions.width > 950 && (
+              <>
+                <div className="intro-image">
+                  <img src="./music.jpg" alt="Intro cover" />
+                </div>
+              </>
+            )}
             <JumpBack musics={lastPlayed} />
           </div>
           <h2 className="section-title body-title">Your top artists</h2>

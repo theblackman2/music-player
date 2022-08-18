@@ -47,7 +47,7 @@ function PlayLists() {
         );
       })
     ) : (
-      <div>You don't have any playlist, please create one.</div>
+      <div>{"You don't have any playlist, please create one."}</div>
     );
 
   const futuredUi =

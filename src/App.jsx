@@ -19,8 +19,24 @@ export default function App() {
   const [token, setToken] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [playingSongUris, setPlayingSongUris] = useState([]);
-  const [mustLogin, setMustLogin] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [screenDimensions, setScreenDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const detectWidthChange = () => {
+    setScreenDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", detectWidthChange);
+
+    return () => window.removeEventListener("resize", detectWidthChange);
+  }, [screenDimensions]);
 
   const chooseSong = (uris) => {
     setPlayingSongUris(uris);
@@ -43,14 +59,14 @@ export default function App() {
       const user = spotify.getMe();
       user
         .then((data) => setUser(data))
-        .catch((error) => {
-          if (
-            error.response ===
-            `{\n  \"error\": {\n    \"status\": 401,\n    \"message\": \"The access token expired\"\n  }\n}`
-          ) {
-            setMustLogin(true);
-          }
-        })
+        // .catch((error) => {
+        //   if (
+        //     error.response ===
+        //     '{\n  "error": {\n    "status": 401,\n    "message": "The access token expired"\n  }\n}'
+        //   ) {
+        //     setMustLogin(true);
+        //   }
+        // })
         .then(() => setLoadingUser(false));
     }
     setLoaded(true);
@@ -73,6 +89,7 @@ export default function App() {
         searching,
         closeSearching,
         openSearching,
+        screenDimensions,
       }}
     >
       <BrowserRouter>
@@ -80,13 +97,7 @@ export default function App() {
           <Route
             path="/"
             element={
-              !token && loaded ? (
-                <Navigate to="/login" replace />
-              ) : mustLogin ? (
-                <Navigate to="/login" replace />
-              ) : (
-                <Home />
-              )
+              !token && loaded ? <Navigate to="/login" replace /> : <Home />
             }
           />
           <Route path="login" element={<Login />} />

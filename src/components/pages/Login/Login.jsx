@@ -1,4 +1,5 @@
 import "./Login.css";
+// import "dotenv/config"
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +8,6 @@ import { BsSpotify } from "react-icons/bs";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import Casques from "./../../../assets/casques.png";
 import BackAnimated from "./../../../assets/back.gif";
-// import BackAnimated from './../../../assets/animated-back.gif'
 
 function Login() {
   const [token, setToken] = useState("");

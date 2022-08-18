@@ -10,7 +10,12 @@ function JumpBack({ musics }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
-  const { setPlayingSongUris } = useContext(appContext);
+  const { setPlayingSongUris, screenDimensions } = useContext(appContext);
+
+  const styles = {
+    width: screenDimensions.width > 950 ? "60%" : "100%",
+    // heigth: screenDimensions.width > 950 ? "300px" : "",
+  };
 
   const musicsUi =
     musics.length > 0 ? (
@@ -45,7 +50,7 @@ function JumpBack({ musics }) {
       <h3>No history</h3>
     );
   return (
-    <Container>
+    <Container style={styles}>
       <h2 className="section-title">Jump back in</h2>
       <div className="musics">{musicsUi}</div>
     </Container>
@@ -55,12 +60,11 @@ function JumpBack({ musics }) {
 export default JumpBack;
 
 const Container = styled.div`
-  width: 60%;
-  height: 300px;
   background-color: #26202c;
   padding: 1rem;
   overflow: scroll;
   position: relative;
+  height: 300px;
 
   .section-title {
     position: sticky;
