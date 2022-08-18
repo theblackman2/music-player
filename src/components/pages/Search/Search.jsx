@@ -286,6 +286,7 @@ const Container = styled.div`
     padding: 10px 1.5rem;
     width: 100%;
     z-index: 5;
+    overflow-x: scroll;
 
     .tab {
       padding: 0.5rem;
