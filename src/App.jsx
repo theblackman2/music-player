@@ -57,17 +57,7 @@ export default function App() {
       setToken(token);
       spotify.setAccessToken(token);
       const user = spotify.getMe();
-      user
-        .then((data) => setUser(data))
-        // .catch((error) => {
-        //   if (
-        //     error.response ===
-        //     '{\n  "error": {\n    "status": 401,\n    "message": "The access token expired"\n  }\n}'
-        //   ) {
-        //     setMustLogin(true);
-        //   }
-        // })
-        .then(() => setLoadingUser(false));
+      user.then((data) => setUser(data)).then(() => setLoadingUser(false));
     }
     setLoaded(true);
   }, []);

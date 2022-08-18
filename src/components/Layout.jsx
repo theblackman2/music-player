@@ -10,7 +10,8 @@ import ShowUser from "./ShowUser/ShowUser";
 import Search from "./pages/Search/Search";
 
 function Layout({ page }) {
-  const { token, playingSongUris, searching } = useContext(appContext);
+  const { token, playingSongUris, searching, screenDimensions } =
+    useContext(appContext);
   const [showUserInfos, setShowUserInfos] = useState(false);
   const [play, setPlay] = useState(false);
 
@@ -29,11 +30,22 @@ function Layout({ page }) {
     });
   };
 
+  const pageStyles = {
+    width: screenDimensions.width > 750 ? "calc(100vw - 200px)" : "100%",
+    marginLeft: screenDimensions.width > 750 ? "200px" : "0",
+  };
+
   return (
     <Container>
-      {!searching && <SideBar showUser={showUser} />}
+      {!searching && screenDimensions.width > 750 && (
+        <SideBar showUser={showUser} />
+      )}
       <SearchBar />
-      {!searching && <div className="page">{page}</div>}
+      {!searching && (
+        <div style={pageStyles} className="page">
+          {page}
+        </div>
+      )}
       {searching && <Search />}
       <div className="player">
         <SpotifyPlayer
@@ -72,8 +84,8 @@ const Container = styled.div`
   background-color: #0e0b1e;
 
   .page {
-    width: calc(100vw - 200px);
-    margin-left: 200px;
+    // width: calc(100vw - 200px);
+    // margin-left: 200px;
     margin-top: 80px;
   }
 

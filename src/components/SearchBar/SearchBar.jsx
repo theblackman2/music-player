@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { FaSearch } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { appContext } from "../../contexts";
+import { FiSearch } from "react-icons/fi";
 
 function SearchBar() {
   const {
@@ -11,7 +11,19 @@ function SearchBar() {
     searching,
     openSearching,
     closeSearching,
+    screenDimensions,
   } = useContext(appContext);
+
+  const formStyles = {
+    width: screenDimensions.width > 564 ? "400px" : searching ? "80%" : "100%",
+    display:
+      screenDimensions.width > 750 ? "flex" : searching ? "flex" : "none",
+  };
+  const searchInput = useRef();
+
+  const showInput = () => {
+    openSearching();
+  };
 
   return (
     <Container>
@@ -21,16 +33,22 @@ function SearchBar() {
         </button>
       )}
 
-      <div className="form">
+      {!searching && screenDimensions.width < 750 && (
+        <button className="search-btn" onClick={showInput}>
+          <FiSearch />
+        </button>
+      )}
+      <div style={formStyles} className="form">
         <input
+          ref={searchInput}
           onFocus={openSearching}
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Songs, artists, albums, playlists"
         />
-        <FaSearch className="icon-search" />
       </div>
+      {/* )} */}
     </Container>
   );
 }
@@ -48,20 +66,28 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 10;
+  padding: 1rem;
+
+  .search-btn {
+    position: absolute;
+    top: 40%;
+    right: 1rem;
+  }
+  .search-btn svg {
+    font-size: 20px;
+  }
 
   .form {
     height: 40px;
-    width: 400px;
     background-color: #fff;
     padding: 10px;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     color: #000;
   }
 
   .form input {
-    width: 90%;
+    width: 100%;
   }
 
   .icon-search {
@@ -73,7 +99,7 @@ const Container = styled.div`
   .close-btn {
     position: absolute;
     top: 1.5rem;
-    left: 2rem;
+    left: 1rem;
   }
 
   .close-btn svg {
