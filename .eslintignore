@@ -1,4 +1,4 @@
-node_modules/
-client/node_modules/
-client/build/
+node_modules
 vite.config.js
+public
+build

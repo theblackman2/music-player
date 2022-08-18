@@ -15,7 +15,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
     "rules": {
         "indent": [
@@ -33,6 +34,8 @@
         "semi": [
             "error",
             "always"
-        ]
+        ], 
+        "prettier/prettier": "error",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 }
