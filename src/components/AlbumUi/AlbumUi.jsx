@@ -8,7 +8,12 @@ function AlbumUi({ id, imageUrl, name, date, artist, uri }) {
   const { setPlayingSongUris } = useContext(appContext);
   return (
     <Contaner>
-      <img onClick={() => setPlayingSongUris([uri])} src={PlayIcon} alt="play" className="play" />
+      <img
+        onClick={() => setPlayingSongUris([uri])}
+        src={PlayIcon}
+        alt="play"
+        className="play"
+      />
       <div className="album-image">
         <Link to={`/albums/${id}`}>
           <img src={imageUrl} alt={`${name} cover`} />

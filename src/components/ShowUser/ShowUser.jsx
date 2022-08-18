@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useContext } from "react";
@@ -106,7 +105,7 @@ const Card = styled.div`
     justify-content: center;
     gap: 2px;
 
-    svg{
+    svg {
       fill: #fff;
     }
   }

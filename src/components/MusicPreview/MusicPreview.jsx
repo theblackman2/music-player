@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { appContext } from "../../contexts";
-import PlayIcon from './../../assets/play.png'
+import PlayIcon from "./../../assets/play.png";
 
 function MusicPreview({ title, artist, duration, imageUrl, uri }) {
   const { setPlayingSongUris } = useContext(appContext);
@@ -34,12 +34,12 @@ const Container = styled.div`
   width: 150px;
   min-width: 150px;
   height: 220px;
-  background-color: #26202C;
+  background-color: #26202c;
   padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap : 1rem;
+  gap: 1rem;
   position: relative;
 
   .play {

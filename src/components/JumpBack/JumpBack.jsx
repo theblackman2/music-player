@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AiFillPlayCircle } from 'react-icons/ai'
+import { AiFillPlayCircle } from "react-icons/ai";
 import { useContext } from "react";
 import { appContext } from "../../contexts";
 
@@ -15,7 +15,7 @@ function JumpBack({ musics }) {
   const musicsUi =
     musics.length > 0 ? (
       musics.map((item, index) => {
-        const uri = item.track.uri
+        const uri = item.track.uri;
         const title = item.track.name;
         const imageUrl = item.track.album.images[2].url;
         const duration = millisToMinutesAndSeconds(item.track.duration_ms);
@@ -23,7 +23,9 @@ function JumpBack({ musics }) {
 
         return (
           <Music onClick={() => setPlayingSongUris([uri])} key={index}>
-            <div className="play"><AiFillPlayCircle /></div>
+            <div className="play">
+              <AiFillPlayCircle />
+            </div>
             <div className="music-infos">
               <img
                 src={imageUrl}
@@ -99,7 +101,7 @@ const Music = styled.div`
     padding-right: 8rem;
     font-size: 16px;
     opacity: 0;
-    transition: .3s;
+    transition: 0.3s;
   }
 
   .play:hover {
@@ -117,7 +119,7 @@ const Music = styled.div`
   .music-title {
     font-size: 15px;
     font-weight: bold;
-    margin-bottom : 3px;
+    margin-bottom: 3px;
   }
 
   .music-artist {

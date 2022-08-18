@@ -3,10 +3,10 @@ import "./Login.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./../Loading/Loading";
-import { BsSpotify } from 'react-icons/bs'
-import { AiFillGoogleCircle } from 'react-icons/ai'
-import Casques from './../../../assets/casques.png'
-import BackAnimated from './../../../assets/back.gif'
+import { BsSpotify } from "react-icons/bs";
+import { AiFillGoogleCircle } from "react-icons/ai";
+import Casques from "./../../../assets/casques.png";
+import BackAnimated from "./../../../assets/back.gif";
 // import BackAnimated from './../../../assets/animated-back.gif'
 
 function Login() {
@@ -75,7 +75,9 @@ function Login() {
       <div className="login-text">
         <h1>Spot Music by TheBlackMan</h1>
         <p>
-          Imaginez toutes les musiques du monde en un seul endroit, tout ce que vous aimez écouter, écoutez les sans arrêt et sans dépenser un seul sous.
+          Imaginez toutes les musiques du monde en un seul endroit, tout ce que
+          vous aimez écouter, écoutez les sans arrêt et sans dépenser un seul
+          sous.
         </p>
         <button onClick={login} className="login-btn">
           Login

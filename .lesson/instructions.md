@@ -9,7 +9,7 @@ La plateforme doit :
 - Proposer un champ de recherche qui permet de taper le titre d’une chanson et de faire une recherche.
 - Donner aux utilisateurs la possibilité d'écouter la musique en ligne
 
-## Critères d'évaluation 
+## Critères d'évaluation
 
 Le projet sera évalué sur base de :
 
@@ -38,7 +38,6 @@ Quelques exemples :
 
 Le projet individuel et doit être réalisé en 10 jours
 
-
 ## Livrables
 
 - Un dépôt Github contenant votre code source ;
@@ -48,4 +47,4 @@ Le projet individuel et doit être réalisé en 10 jours
 ## Ressources
 
 - [API de spotify](https://developer.spotify.com/documentation/web-api/quick-start/)
-- [SDK de spotify](https://developer.spotify.com/documentation/web-playback-sdk/) 
+- [SDK de spotify](https://developer.spotify.com/documentation/web-playback-sdk/)
