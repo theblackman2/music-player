@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { appContext } from "../../contexts";
 import PlayIcon from "./../../assets/play.png";
 
-function AlbumUi({ id, imageUrl, name, date, artist, artistId }) {
+function AlbumUi({ id, imageUrl, name, date, artist, uri }) {
+  const { setPlayingSongUris } = useContext(appContext);
   return (
     <Contaner>
-      <img src={PlayIcon} alt="play" className="play" />
+      <img onClick={() => setPlayingSongUris([uri])} src={PlayIcon} alt="play" className="play" />
       <div className="album-image">
         <Link to={`/albums/${id}`}>
           <img src={imageUrl} alt={`${name} cover`} />

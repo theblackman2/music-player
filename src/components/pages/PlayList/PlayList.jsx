@@ -10,7 +10,8 @@ function PlayList() {
   const { id } = useParams();
   const [playlist, setPlayList] = useState({});
   const [loadingPlayPlist, setLoadingPlayList] = useState(true);
-  const { spotify, closeSearching } = useContext(appContext);
+  const { spotify, closeSearching, setPlayingSongUris } =
+    useContext(appContext);
 
   useEffect(() => closeSearching, [id]);
 
@@ -47,8 +48,9 @@ function PlayList() {
   const musics =
     Object.keys(playlist).length > 0 ? (
       playlist.tracks.items.map((item) => {
+        const uri = item.track.uri;
         return (
-          <Music key={nanoid()}>
+          <Music onClick={() => setPlayingSongUris([uri])} key={nanoid()}>
             <div className="music-left">
               <img
                 src={item.track.album.images[2].url}
@@ -96,7 +98,7 @@ function PlayList() {
                 {" "}
                 {playlist.tracks.total} songs
               </p>
-              <button>
+              <button onClick={() => setPlayingSongUris([playlist.uri])}>
                 <img src={PlayIcon} alt="Play icon" />
               </button>
             </div>

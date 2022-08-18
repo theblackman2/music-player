@@ -5,14 +5,18 @@ import SpotifyPlayer from "react-spotify-web-playback";
 import { useContext } from "react";
 import { appContext } from "../contexts";
 import ScroolToTopIcon from "./../assets/down.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShowUser from "./ShowUser/ShowUser";
 import Search from "./pages/Search/Search";
 
 function Layout({ page }) {
-  const { token, playingSongUris, searching, openSearching } = useContext(appContext);
+  const { token, playingSongUris, searching } = useContext(appContext);
   const [showUserInfos, setShowUserInfos] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    setPlay(true);
+  }, [playingSongUris]);
 
   const showUser = () => {
     setShowUserInfos((prevState) => !prevState);
@@ -30,13 +34,26 @@ function Layout({ page }) {
       {!searching && <SideBar showUser={showUser} />}
       <SearchBar />
       {!searching && <div className="page">{page}</div>}
-      {searching && <Search close={setShowSearch} />}
+      {searching && <Search />}
       <div className="player">
         {/* <SpotifyPlayer
+          styles={{
+            activeColor: "#fff",
+            bgColor: "#0e0b1e",
+            color: "#fff",
+            loaderColor: "#fff",
+            sliderColor: "#1cb954",
+            trackArtistColor: "#ccc",
+            trackNameColor: "#fff",
+          }}
           autoPlay={true}
-          play={true}
+          callback={(state) => {
+            if (!state.isPlaying) setPlay(false);
+          }}
+          showSaveIcon={true}
+          play={play}
           token={token}
-          uris={["spotify:playlist:3H6ZPTvBOEDNm98FTEG3gy"]}
+          uris={playingSongUris}
         /> */}
       </div>
       {showUserInfos && <ShowUser showUser={showUser} />}
@@ -61,8 +78,8 @@ const Container = styled.div`
   }
 
   .player {
-    width: calc(100vw - 200px);
     position: fixed;
+    width: 100%;
     bottom: 0;
     right: 0;
     z-index: 1;

@@ -7,6 +7,7 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
 import { RiLogoutBoxFill } from "react-icons/ri";
+import Uknown from "./../../assets/uknown.png";
 
 function SideBar({ showUser }) {
   const navigate = useNavigate();
@@ -30,9 +31,7 @@ function SideBar({ showUser }) {
     <User onClick={showUser}>
       <div className="user-avatar">
         <img
-          src={
-            user.images.length > 0 ? user.images[0].url : "./assets/user.png"
-          }
+          src={user.images.length > 0 ? user.images[0].url : Uknown}
           alt="User avatar"
         />
       </div>

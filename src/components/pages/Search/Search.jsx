@@ -85,10 +85,6 @@ function Search({ close }) {
     }
   }, [searchTerm]);
 
-  const closeSearch = () => {
-    close(false);
-  };
-
   const songsUi = (
     <div className="search-section">
       <h2 className="section-title">Songs</h2>
@@ -99,6 +95,7 @@ function Search({ close }) {
             const artist = item.artists[0].name;
             const duration = item.duration_ms;
             const imageUrl = item.album.images[1].url;
+            const uri = item.uri;
 
             return (
               <MusicPreview
@@ -106,6 +103,7 @@ function Search({ close }) {
                 title={title}
                 artist={artist}
                 duration={duration}
+                uri={uri}
                 imageUrl={imageUrl}
               />
             );
@@ -157,6 +155,7 @@ function Search({ close }) {
             const name = item.name;
             const date = item.release_date;
             const artist = item.artists[0].name;
+            const uri = item.uri;
 
             return (
               <AlbumUi
@@ -166,6 +165,7 @@ function Search({ close }) {
                 name={name}
                 date={date}
                 artist={artist}
+                uri={uri}
               />
             );
           })
@@ -186,6 +186,7 @@ function Search({ close }) {
             const description = item.description;
             const imageUrl = item.images.length > 0 ? item.images[0].url : "";
             const id = item.id;
+            const uri = item.uri;
 
             return (
               <PlayListUi
@@ -194,6 +195,7 @@ function Search({ close }) {
                 description={description}
                 imageUrl={imageUrl}
                 id={id}
+                uri={uri}
               />
             );
           })
@@ -224,7 +226,7 @@ function Search({ close }) {
         </>
       ) : (
         <div className="nothing">
-          <h2>Search somthing</h2>
+          <h2>Search something</h2>
         </div>
       )}
     </Container>

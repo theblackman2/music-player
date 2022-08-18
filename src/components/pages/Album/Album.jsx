@@ -10,7 +10,8 @@ import PlayIcon from "./../../../assets/play.png";
 function Album() {
   const navigate = useNavigate();
   const { albumId } = useParams();
-  const { spotify, closeSearching } = useContext(appContext);
+  const { spotify, closeSearching, setPlayingSongUris } =
+    useContext(appContext);
 
   useEffect(() => closeSearching, [albumId]);
 
@@ -38,9 +39,10 @@ function Album() {
         const name = item.name;
         const duration = millisToMinutesAndSeconds(item.duration_ms);
         const artist = item.artists[0].name;
+        const uri = item.uri;
 
         return (
-          <Music key={index}>
+          <Music onClick={() => setPlayingSongUris([uri])} key={index}>
             <div className="music-left">
               <img src={album.images[2].url} alt={`${name} cover`} />
               <div>
@@ -71,7 +73,10 @@ function Album() {
       ) : (
         <>
           <div className="album-header">
-            <button className="play">
+            <button
+              onClick={() => setPlayingSongUris([album.uri])}
+              className="play"
+            >
               <img src={PlayIcon} alt="play" />
             </button>
             <div className="filter"></div>

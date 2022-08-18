@@ -11,7 +11,8 @@ import UknownUserImage from "./../../../assets/uknown.png";
 
 function Artist() {
   const { id } = useParams();
-  const { spotify, closeSearching } = useContext(appContext);
+  const { spotify, closeSearching, setPlayingSongUris } =
+    useContext(appContext);
   const [artist, setArtist] = useState({});
   const [loadingArtist, setLoadingArtist] = useState(true);
   const [releatedArtists, setReleatedArtists] = useState([]);
@@ -74,7 +75,7 @@ function Artist() {
         const name = item.name;
         const imageUrl = item.images[1].url;
         const date = item.release_date.split("-")[0];
-        // const artist = item.artists[O].name
+        const uri = item.uri;
         const id = item.id;
         const artist = item.artists[0].name;
         return (
@@ -85,6 +86,7 @@ function Artist() {
             date={date}
             id={id}
             artist={artist}
+            uri={uri}
           />
         );
       })
@@ -122,7 +124,7 @@ function Artist() {
             </p>
           </div>
         </div>
-        <button>
+        <button onClick={() => setPlayingSongUris([artist.uri])}>
           <img src={PlayIcon} alt="play" />
         </button>
       </div>

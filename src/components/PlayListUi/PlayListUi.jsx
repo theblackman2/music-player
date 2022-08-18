@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PlayIcon from "./../../assets/play.png";
 import Uknow from "./../../assets/uknown.png";
+import { useContext } from "react";
+import { appContext } from "../../contexts";
 
-function PlayListUi({ name, description, imageUrl, id }) {
+function PlayListUi({ name, description, imageUrl, id, uri }) {
+  const { setPlayingSongUris } = useContext(appContext);
   return (
     <Container>
       <Link className="playlist-image" to={`/playlists/${id}`}>
@@ -18,7 +21,7 @@ function PlayListUi({ name, description, imageUrl, id }) {
           className="playlist-description"
           dangerouslySetInnerHTML={{ __html: description }}
         ></p>
-        <button className="play-btn">
+        <button onClick={() => setPlayingSongUris([uri])} className="play-btn">
           <img src={PlayIcon} alt="play" />
         </button>
       </div>

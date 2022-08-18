@@ -20,8 +20,6 @@ function PlayLists() {
       .then(() => setLoadingMyPlayLists(false));
   }, []);
 
-  // console.log(spotify)
-
   useEffect(() => {
     const fitured = spotify.getFeaturedPlaylists();
     fitured
@@ -32,6 +30,7 @@ function PlayLists() {
   const playListsUi =
     myPlayLists.length > 0 ? (
       myPlayLists.map((item) => {
+        const uri = item.uri;
         const id = item.id;
         const name = item.name;
         const description = item.description;
@@ -43,6 +42,7 @@ function PlayLists() {
             name={name}
             description={description}
             imageUrl={imageUrl}
+            uri={uri}
           />
         );
       })
@@ -54,6 +54,7 @@ function PlayLists() {
     futuredPlaylists.length > 0 ? (
       futuredPlaylists.map((item) => {
         if (item !== null) {
+          const uri = item.uri;
           const id = item.id;
           const name = item.name;
           const description = item.description;
@@ -65,14 +66,13 @@ function PlayLists() {
               name={name}
               description={description}
               imageUrl={imageUrl}
+              uri={uri}
             />
           );
         }
       })
     ) : (
-      <div>
-        Nothing to show, listen for some musics.
-      </div>
+      <div>Nothing to show, listen for some musics.</div>
     );
 
   const page = (

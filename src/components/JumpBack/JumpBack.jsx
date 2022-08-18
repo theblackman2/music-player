@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { AiFillPlayCircle } from 'react-icons/ai'
+import { useContext } from "react";
+import { appContext } from "../../contexts";
 
 function JumpBack({ musics }) {
   const millisToMinutesAndSeconds = (millis) => {
@@ -8,17 +10,19 @@ function JumpBack({ musics }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
+  const { setPlayingSongUris } = useContext(appContext);
+
   const musicsUi =
     musics.length > 0 ? (
       musics.map((item, index) => {
+        const uri = item.track.uri
         const title = item.track.name;
-        const id = item.track.id;
         const imageUrl = item.track.album.images[2].url;
         const duration = millisToMinutesAndSeconds(item.track.duration_ms);
         const artist = item.track.artists[0].name;
 
         return (
-          <Music key={index}>
+          <Music onClick={() => setPlayingSongUris([uri])} key={index}>
             <div className="play"><AiFillPlayCircle /></div>
             <div className="music-infos">
               <img

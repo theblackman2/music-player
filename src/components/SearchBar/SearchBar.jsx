@@ -27,7 +27,7 @@ function SearchBar({ showSearch, show }) {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Type something to search"
+          placeholder="Songs, artists, albums, playlists"
         />
         <FaSearch className="icon-search" />
       </div>
@@ -60,7 +60,7 @@ const Container = styled.div`
     color: #000;
   }
 
-  form input {
+  .form input {
     width: 90%;
   }
 

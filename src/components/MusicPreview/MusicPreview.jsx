@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { appContext } from "../../contexts";
 import PlayIcon from './../../assets/play.png'
 
-function MusicPreview({ title, artist, duration, imageUrl }) {
+function MusicPreview({ title, artist, duration, imageUrl, uri }) {
+  const { setPlayingSongUris } = useContext(appContext);
 
   const millisToMinutesAndSeconds = (millis) => {
     var minutes = Math.floor(millis / 60000);
@@ -11,7 +14,7 @@ function MusicPreview({ title, artist, duration, imageUrl }) {
   return (
     <Container>
       <span className="play">
-        <button>
+        <button onClick={() => setPlayingSongUris(uri)}>
           <img src={PlayIcon} alt="Play" />
         </button>
       </span>

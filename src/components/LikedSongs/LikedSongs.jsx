@@ -6,14 +6,27 @@ import PlayIcon from "./../../assets/play.png";
 function LikedSongs() {
   const [likedSongs, setLikedSongs] = useState([]);
   const [loadingLikedSongs, setLoadingLikedSongs] = useState(true);
+  const [uris, setUris] = useState([]);
 
-  const { spotify, user } = useContext(appContext);
+  const { spotify, user, setPlayingSongUris } = useContext(appContext);
+
+  const getUris = (songs) => {
+    if (songs.length === 0) return [];
+    const uris = songs.items.map((item) => {
+      const uri = item.track.uri;
+      return uri;
+    });
+    return uris;
+  };
 
   useEffect(() => {
     const liked = spotify.getMySavedTracks();
     liked
       .then((data) => {
         setLikedSongs(data);
+      })
+      .then(() => {
+        setUris(getUris(likedSongs));
       })
       .then(() => setLoadingLikedSongs(false));
   }, []);
@@ -32,7 +45,7 @@ function LikedSongs() {
           ) : (
             <>
               <p>Total : {likedSongs.total}</p>
-              <button>
+              <button onClick={() => setPlayingSongUris(uris)}>
                 <img src={PlayIcon} alt="Play" />
               </button>
             </>

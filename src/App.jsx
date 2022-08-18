@@ -64,6 +64,7 @@ export default function App() {
         token,
         spotify,
         playingSongUris,
+        setPlayingSongUris,
         chooseSong,
         user,
         loadingUser,
