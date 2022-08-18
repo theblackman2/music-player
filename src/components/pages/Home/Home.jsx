@@ -9,8 +9,12 @@ import TopArtists from "../../TopArtsts/TopArtists";
 function Home() {
   const [lastPlayed, setLastPlayed] = useState([]);
   const [loadingLatests, setLoadingLatests] = useState(true);
-  const { spotify, screenDimensions } = useContext(appContext);
+  const { spotify, screenDimensions, setShowSideBar } = useContext(appContext);
   const [topArtists, setTopArtists] = useState([]);
+
+  useEffect(() => {
+    setShowSideBar(false);
+  }, []);
 
   useEffect(() => {
     const tracs = spotify.getMyRecentlyPlayedTracks();

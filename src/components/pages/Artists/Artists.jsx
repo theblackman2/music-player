@@ -6,9 +6,13 @@ import ArtistUi from "../../ArtistUi/ArtistUi";
 import Layout from "../../Layout";
 
 function Artists() {
-  const { spotify } = useContext(appContext);
+  const { spotify, setShowSideBar } = useContext(appContext);
   const [topArtists, setTopArtsts] = useState([]);
   const [loadingTopArtists, setLoadingTopArtsts] = useState(true);
+
+  useEffect(() => {
+    setShowSideBar(false);
+  }, []);
 
   useEffect(() => {
     const artists = spotify.getMyTopArtists();

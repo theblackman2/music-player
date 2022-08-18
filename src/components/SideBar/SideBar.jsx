@@ -93,6 +93,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   background-color: #26202c;
+  z-index: 6;
 
   a {
     display: flex;

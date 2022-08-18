@@ -10,7 +10,7 @@ import ShowUser from "./ShowUser/ShowUser";
 import Search from "./pages/Search/Search";
 
 function Layout({ page }) {
-  const { token, playingSongUris, searching, screenDimensions } =
+  const { token, playingSongUris, searching, screenDimensions, showSideBar } =
     useContext(appContext);
   const [showUserInfos, setShowUserInfos] = useState(false);
   const [play, setPlay] = useState(false);
@@ -37,8 +37,10 @@ function Layout({ page }) {
 
   return (
     <Container>
-      {!searching && screenDimensions.width > 750 && (
+      {!searching && screenDimensions.width > 750 ? (
         <SideBar showUser={showUser} />
+      ) : (
+        showSideBar && !searching && <SideBar showUser={showUser} />
       )}
       <SearchBar />
       {!searching && (

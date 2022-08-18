@@ -10,8 +10,12 @@ function PlayList() {
   const { id } = useParams();
   const [playlist, setPlayList] = useState({});
   const [loadingPlayPlist, setLoadingPlayList] = useState(true);
-  const { spotify, closeSearching, setPlayingSongUris } =
+  const { spotify, closeSearching, setPlayingSongUris, setShowSideBar } =
     useContext(appContext);
+
+  useEffect(() => {
+    setShowSideBar(false);
+  }, []);
 
   useEffect(() => closeSearching, [id]);
 

@@ -7,11 +7,15 @@ import LikedSongs from "../../LikedSongs/LikedSongs";
 import PlayListUi from "../../PlayListUi/PlayListUi";
 
 function PlayLists() {
-  const { spotify, user } = useContext(appContext);
+  const { spotify, user, setShowSideBar } = useContext(appContext);
   const [myPlayLists, setMyPlayLists] = useState([]);
   const [futuredPlaylists, setFuturedPlaylists] = useState([]);
   const [loadingFutured, setLoadingFutured] = useState(true);
   const [loadingMyPlayLists, setLoadingMyPlayLists] = useState(true);
+
+  useEffect(() => {
+    setShowSideBar(false);
+  }, []);
 
   useEffect(() => {
     const myPlayLists = spotify.getUserPlaylists(user.id);

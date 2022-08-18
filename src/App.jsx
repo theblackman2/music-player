@@ -24,6 +24,7 @@ export default function App() {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const [showSideBar, setShowSideBar] = useState(false);
 
   const detectWidthChange = () => {
     setScreenDimensions({
@@ -80,6 +81,8 @@ export default function App() {
         closeSearching,
         openSearching,
         screenDimensions,
+        showSideBar,
+        setShowSideBar,
       }}
     >
       <BrowserRouter>

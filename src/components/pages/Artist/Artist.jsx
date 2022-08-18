@@ -11,7 +11,7 @@ import UknownUserImage from "./../../../assets/uknown.png";
 
 function Artist() {
   const { id } = useParams();
-  const { spotify, closeSearching, setPlayingSongUris } =
+  const { spotify, closeSearching, setPlayingSongUris, setShowSideBar } =
     useContext(appContext);
   const [artist, setArtist] = useState({});
   const [loadingArtist, setLoadingArtist] = useState(true);
@@ -19,6 +19,10 @@ function Artist() {
   const [albums, setAlbums] = useState([]);
   const [showAlbums, setShowAlbums] = useState(false);
   const [loadingAlbums, setLoadingAlbums] = useState(true);
+
+  useEffect(() => {
+    setShowSideBar(false);
+  }, []);
 
   useEffect(() => closeSearching, [id]);
   useEffect(() => {

@@ -3,6 +3,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { useContext, useRef } from "react";
 import { appContext } from "../../contexts";
 import { FiSearch } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function SearchBar() {
   const {
@@ -12,6 +13,7 @@ function SearchBar() {
     openSearching,
     closeSearching,
     screenDimensions,
+    setShowSideBar,
   } = useContext(appContext);
 
   const formStyles = {
@@ -32,7 +34,14 @@ function SearchBar() {
           <AiFillCloseCircle />
         </button>
       )}
-
+      {!searching && screenDimensions.width < 750 && (
+        <button
+          onClick={() => setShowSideBar((prevState) => !prevState)}
+          className="menu-btn"
+        >
+          <GiHamburgerMenu />
+        </button>
+      )}
       {!searching && screenDimensions.width < 750 && (
         <button className="search-btn" onClick={showInput}>
           <FiSearch />
@@ -73,8 +82,11 @@ const Container = styled.div`
     top: 40%;
     right: 1rem;
   }
-  .search-btn svg {
-    font-size: 20px;
+
+  .menu-btn {
+    position: absolute;
+    top: 40%;
+    left: 1rem;
   }
 
   .form {
@@ -102,7 +114,7 @@ const Container = styled.div`
     left: 1rem;
   }
 
-  .close-btn svg {
+  svg {
     font-size: 25px;
   }
 `;
