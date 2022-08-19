@@ -104,7 +104,6 @@ export default function App() {
         // <Route path="artists" element={<Artists />} />
         // <Route path="artists/:id" element={<Artist />} />
         // <Route path="albums/:albumId" element={<Album />} />
-        <Route path="*" element={<Login>404</Login>} />
       </Routes>
       {token && (
         <Player>
