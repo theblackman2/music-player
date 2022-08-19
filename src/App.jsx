@@ -101,11 +101,11 @@ export default function App() {
           }
         />
         <Route path="login" element={<Login />} />
-        <Route path="playlists" element={<PlayLists />}></Route>
-        <Route path="playlists/:id" element={<PlayList />} />
-        <Route path="artists" element={<Artists />} />
-        <Route path="artists/:id" element={<Artist />} />
-        <Route path="albums/:albumId" element={<Album />} />
+        // <Route path="playlists" element={<PlayLists />}></Route>
+        // <Route path="playlists/:id" element={<PlayList />} />
+        // <Route path="artists" element={<Artists />} />
+        // <Route path="artists/:id" element={<Artist />} />
+        // <Route path="albums/:albumId" element={<Album />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {token && (
