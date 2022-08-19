@@ -98,7 +98,7 @@ export default function App() {
           path="/"
           element={<Login>Accueil</Login>}
         />
-        // <Route path="login" element={<Login>login</Login>} />
+        <Route path="login" element={<Login>login</Login>} />
         // <Route path="playlists" element={<PlayLists />}></Route>
         // <Route path="playlists/:id" element={<PlayList />} />
         // <Route path="artists" element={<Artists />} />
