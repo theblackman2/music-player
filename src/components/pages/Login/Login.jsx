@@ -1,22 +1,22 @@
 import "./Login.css";
-// import "dotenv/config"
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "./../Loading/Loading";
+import Loading from "../Loading/Loading";
 import { BsSpotify } from "react-icons/bs";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import Casques from "./../../../assets/casques.png";
 import BackAnimated from "./../../../assets/back.gif";
+import { API_URL, CLIENT_ID, REDIRECT_URI } from "../../../../appConfig";
 
 function Login() {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const login = () => {
-    const clientId = "b309623c655e4a2b9091ac8d77e58bea";
-    const redirectUrl = "http://localhost:5173/login";
-    const apiUrl = "https://accounts.spotify.com/authorize";
+    const clientId = CLIENT_ID;
+    const redirectUrl = REDIRECT_URI;
+    const apiUrl = API_URL;
     const scopes = [
       "user-read-email",
       "user-read-private",
