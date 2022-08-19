@@ -1,5 +1,5 @@
 import "./App.css";
-import Login from "./components/pages/Login/Login";
+// import Login from "./components/pages/Login/Login";
 import Home from "./components/pages/Home/Home";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PlayLists from "./components/pages/PlayLists/PlayLists";
@@ -96,11 +96,9 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            !token && loaded ? <Navigate to="/login" replace /> : <Home />
-          }
+          element={<Login>Accueil</Login>}
         />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login>login</Login>} />
         // <Route path="playlists" element={<PlayLists />}></Route>
         // <Route path="playlists/:id" element={<PlayList />} />
         // <Route path="artists" element={<Artists />} />
@@ -142,3 +140,8 @@ const Player = styled.div`
   right: 0;
   z-index: 10;
 `;
+
+const Login = styled.div`
+  width: 100%;
+  heigth: 100%
+`
