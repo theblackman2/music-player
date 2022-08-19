@@ -8,10 +8,11 @@ import UknownUserImage from "./../../assets/uknown.png";
 
 function ShowUser({ showUser }) {
   const navigate = useNavigate();
-  const { user } = useContext(appContext);
+  const { user, setToken } = useContext(appContext);
 
   const logout = () => {
     localStorage.removeItem("token");
+    setToken("");
     navigate("/login");
   };
 

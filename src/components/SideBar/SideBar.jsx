@@ -12,10 +12,11 @@ import Uknown from "./../../assets/uknown.png";
 function SideBar({ showUser }) {
   const navigate = useNavigate();
 
-  const { user, loadingUser } = useContext(appContext);
+  const { user, loadingUser, setToken } = useContext(appContext);
 
   const logout = () => {
     localStorage.removeItem("token");
+    setToken("");
     navigate("/login");
   };
 

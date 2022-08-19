@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import PlayList from "./components/pages/PlayList/PlayList";
 import Artist from "./components/pages/Artist/Artist";
 import Album from "./components/pages/Album/Album";
+import SpotifyPlayer from "react-spotify-web-playback";
+import styled from "styled-components";
 
 const spotify = new SpotifyWebApi();
 
@@ -25,6 +27,11 @@ export default function App() {
     height: window.innerHeight,
   });
   const [showSideBar, setShowSideBar] = useState(false);
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    setPlay(true);
+  }, [playingSongUris]);
 
   const detectWidthChange = () => {
     setScreenDimensions({
@@ -83,6 +90,7 @@ export default function App() {
         screenDimensions,
         showSideBar,
         setShowSideBar,
+        setToken,
       }}
     >
       <BrowserRouter>
@@ -102,6 +110,37 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+      {token && (
+        <Player>
+          <SpotifyPlayer
+            styles={{
+              activeColor: "#fff",
+              bgColor: "#0e0b1e",
+              color: "#fff",
+              loaderColor: "#fff",
+              sliderColor: "#1cb954",
+              trackArtistColor: "#ccc",
+              trackNameColor: "#fff",
+            }}
+            autoPlay={true}
+            callback={(state) => {
+              if (!state.isPlaying) setPlay(false);
+            }}
+            showSaveIcon={true}
+            play={play}
+            token={token}
+            uris={playingSongUris}
+          />
+        </Player>
+      )}
     </appContext.Provider>
   );
 }
+
+const Player = styled.div`
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+`;
