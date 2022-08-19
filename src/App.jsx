@@ -96,9 +96,9 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<Login>Accueil</Login>}
+          element={<div>test</div>}
         />
-        <Route path="login" element={<Login>login</Login>} />
+        <Route path="login" element={<div>login</div>} />
         // <Route path="playlists" element={<PlayLists />}></Route>
         // <Route path="playlists/:id" element={<PlayList />} />
         // <Route path="artists" element={<Artists />} />
