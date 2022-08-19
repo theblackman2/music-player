@@ -1,7 +1,7 @@
 import "./App.css";
 import Login from "./components/pages/Login/Login";
 import Home from "./components/pages/Home/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import PlayLists from "./components/pages/PlayLists/PlayLists";
 import Artists from "./components/pages/Artists/Artists";
 import SpotifyWebApi from "spotify-web-api-js";
@@ -93,23 +93,21 @@ export default function App() {
         setToken,
       }}
     >
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              !token && loaded ? <Navigate to="/login" replace /> : <Home />
-            }
-          />
-          <Route path="login" element={<Login />} />
-          <Route path="playlists" element={<PlayLists />}></Route>
-          <Route path="playlists/:id" element={<PlayList />} />
-          <Route path="artists" element={<Artists />} />
-          <Route path="artists/:id" element={<Artist />} />
-          <Route path="albums/:albumId" element={<Album />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            !token && loaded ? <Navigate to="/login" replace /> : <Home />
+          }
+        />
+        <Route path="login" element={<Login />} />
+        <Route path="playlists" element={<PlayLists />}></Route>
+        <Route path="playlists/:id" element={<PlayList />} />
+        <Route path="artists" element={<Artists />} />
+        <Route path="artists/:id" element={<Artist />} />
+        <Route path="albums/:albumId" element={<Album />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       {token && (
         <Player>
           <SpotifyPlayer
